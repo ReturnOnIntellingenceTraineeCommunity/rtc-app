@@ -76,9 +76,15 @@ public class UserResourseImpl implements UserResource{
         restTemplate.delete(hostUserUrl + "{id}", id);
     }
 
+//    @Override
+//    public User create(User user) {
+//    //  return  restTemplate.postForEntity(hostUserUrl, user, User.class);
+//        return restTemplate.postForObject(hostUserUrl, user, User.class);
+//    }
+    
     @Override
     public User create(User user) {
-        return restTemplate.postForObject(hostUserUrl+"user", user, User.class);
+        return restTemplate.postForObject(hostUserUrl, user, User.class);
     }
 
     @Override

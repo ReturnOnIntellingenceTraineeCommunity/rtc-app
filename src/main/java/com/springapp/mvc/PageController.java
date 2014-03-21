@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.util.rtc.validation.Validation;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.List;
 import net.github.rtc.web.courses.service.UserService;
-import org.springframework.validation.BindingResult;
+//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -60,12 +61,11 @@ public class PageController {
         mav.addObject("user", user);
         return mav;
     }
-    @RequestMapping(value = "/w", method = RequestMethod.POST)
-    public ModelAndView create(BindingResult bindingResult,
-                         SessionStatus session) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public ModelAndView create(SessionStatus session) {
       ModelAndView mav = new ModelAndView("user/user");
-      User u;
-       u = service.create(new User(2, "Alex", "phone", "scorp", "dnepr", "uni", "fac", "1234"));
+      User u=new User(12, "Lisitsa Alexandr Alexandrovich", "gfgfdgdfg", "dfgdfgdf", new Date(2000, 12, 12), "dsfsdfsdf", "fdsfsdfsdfs", "dsfsdfsdfsdf", "sdfsdfsdfsd", null, 11, 11, "fdgddfgdff", "123456789");
+       u = service.create(u);
         session.setComplete();
         mav.addObject("user", u);
          return mav;

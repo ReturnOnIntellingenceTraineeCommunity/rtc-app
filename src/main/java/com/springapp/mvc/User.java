@@ -4,9 +4,9 @@ import org.util.rtc.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlRootElement;
+//import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+
 public class User {
     
     Integer id;
@@ -170,8 +170,10 @@ public class User {
 
     }
 
-    public User(String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String major, List<String> technologies, Integer writtenEng, Integer oralEng, String note, String password) {
+    public User(Integer id,String fio, String phone, String email, Date birthDate, String city, String university, String faculty, String major, List<String> technologies, Integer writtenEng, Integer oralEng, String note, String password) {
+         this.id=id;
         this.fio = fio;
+       
         this.phone = phone;
         this.email = email;
         this.birthDate = birthDate;
@@ -193,16 +195,32 @@ public class User {
          this.fio = fio;
         this.phone = phone;
         this.email = email;
-        this.birthDate = new Date();
+        this.birthDate = null;
         this.city = city;
         this.university = university;
         this.faculty = faculty;
-        this.speciality = "bb";
+        this.speciality ="fd";
         this.technologies = null;
         this.writtenEng = 1;
-        this.oralEng = 2;
-        this.note = "df";
+        this.oralEng = 1;
+        this.note = "fd";
         this.password = password;
     }
-
+public User (Integer id, String fio)
+    {
+        this.id=id;
+         this.fio = fio;
+        this.phone = null;
+        this.email = null;
+        this.birthDate = null;
+        this.city = null;
+        this.university = null;
+        this.faculty = null;
+        this.speciality =null;
+        this.technologies = null;
+        this.writtenEng = null;
+        this.oralEng = null;
+        this.note = null;
+        this.password = null;
+    }
 }
