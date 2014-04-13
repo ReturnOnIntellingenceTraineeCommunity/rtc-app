@@ -9,6 +9,7 @@
 
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
+        <spring.security.version>3.2.0.RELEASE</spring.security.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -56,6 +57,24 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
         </dependency>
 
         <dependency>
@@ -143,13 +162,33 @@
             <version>1.2.0-RELEASE</version>
             <type>jar</type>
         </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>2.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>2.2.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>2.2.2</version>
+            </dependency>
+
+
     </dependencies>
 
     <build>
         <finalName>rtc-app</finalName>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -157,15 +196,20 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
-                <version>1.1</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
                 <configuration>
-                    <url>http://localhost:8080/manager/text</url>
-                    <server>PulseTomcatServer</server>
                     <path>/rtc-app</path>
+                    <port>8090</port>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -194,6 +238,16 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>tomcat-maven-plugin</artifactId>
+                <version>1.1</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>PulseTomcatServer</server>
+                    <path>/rtc-app</path>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -212,13 +266,20 @@
 
             <properties>
                 <host.baseUrl>http://localhost:8079/api/</host.baseUrl>
+                <host.userURL>http://localhost:8078/api/users-web-service/</host.userURL>
             </properties>
         </profile>
+        
+        
         <profile>
             <id>prod</id>
             <properties>
                 <host.baseUrl>http://146.185.176.193:8079/api/</host.baseUrl>
+                <host.userURL>http://146.185.176.193:8078/api/users-web-service/</host.userURL>
             </properties>
+                    
         </profile>
+        
+        
     </profiles>
 </project>
