@@ -10,6 +10,8 @@ package net.github.rtc.app.resource.impl;
 import net.github.rtc.app.model.User;
 import java.util.Arrays;
 import java.util.Collection;
+
+import net.github.rtc.app.profile.Remote;
 import net.github.rtc.app.resource.UserResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Саша
  */
+@Remote
 @Component("userDao")
 public class UserResourseImpl implements UserResource{
     private RestTemplate restTemplate;

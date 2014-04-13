@@ -1,5 +1,6 @@
 package net.github.rtc.app.resource.impl;
 
+import net.github.rtc.app.profile.Remote;
 import net.github.rtc.app.resource.CategoryResource;
 import net.github.rtc.app.resource.AbstractResource;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.Collection;
  *
  * @author Vladislav Pikus
  */
+@Remote
 @Component("categoryResource")
 public class CategoryResourceImpl extends AbstractResource implements CategoryResource {
     /**

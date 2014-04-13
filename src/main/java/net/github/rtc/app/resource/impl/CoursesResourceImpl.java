@@ -2,8 +2,10 @@ package net.github.rtc.app.resource.impl;
 
 import net.github.rtc.app.model.Course;
 import net.github.rtc.app.model.CourseDto;
+import net.github.rtc.app.profile.Remote;
 import net.github.rtc.app.resource.CoursesResource;
 import net.github.rtc.app.resource.AbstractResource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,6 +19,7 @@ import java.net.URI;
  * @author Vladislav Pikus
  */
 @Component("coursesDao")
+@Remote
 public class CoursesResourceImpl extends AbstractResource implements CoursesResource {
 
     /**
