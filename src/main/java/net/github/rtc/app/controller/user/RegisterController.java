@@ -19,10 +19,10 @@ public class RegisterController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView openRegisterPage() {
-        ModelAndView mav = new ModelAndView("user/layout");
+        ModelAndView mav = new ModelAndView("welcome/welcomeLayout");
         User u = new User();
         mav.getModelMap().addAttribute("user", u);
-        mav.addObject("content", "register");
+        mav.addObject("content", "../user/content/register");
         return mav;
     }
 
