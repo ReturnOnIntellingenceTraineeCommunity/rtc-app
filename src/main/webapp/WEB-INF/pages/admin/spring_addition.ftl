@@ -96,3 +96,11 @@
     });
 </script>
 </#macro>
+<#macro adminViewAllTableGenetation userList>
+<#nested/>
+<div style="text-align: right">
+<img src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/images/back_disabled.png"><a> Previous</a>
+
+<a>Next</a><img src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/images/forward_disabled.png">
+</div>
+</#macro>
