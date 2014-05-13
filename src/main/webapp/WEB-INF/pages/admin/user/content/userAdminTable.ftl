@@ -1,5 +1,5 @@
+<table border="1">
 
-<table>
     <thead>
 
     <tr>
@@ -12,6 +12,7 @@
     </tr>
 
     </thead>
+
     <tbody>
 
     <#list users as x>

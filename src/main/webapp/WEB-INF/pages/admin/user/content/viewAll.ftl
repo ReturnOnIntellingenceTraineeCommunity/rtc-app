@@ -1,6 +1,6 @@
 <@spring.adminViewAllTableGenetation "users">
     <#include "userAdminTable.ftl">
-
+<div class="btn" type="submit" onclick="doAjaxPost()">BUTTONISHE</div>
 </@spring.adminViewAllTableGenetation >
 <br><br>
 <div align = "right">
@@ -10,4 +10,23 @@
 </div>
 
 
+<script type="text/javascript">
+
+    function doAjaxPost() {
+
+        type: "POST"
+        url:
+        dataType: "json",
+        success: function(response)
+        {
+
+        },
+        error: function(e)
+        {
+            alert('ERROR '+e);
+        }
+
+    }
+
+</script>
 
