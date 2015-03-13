@@ -6,8 +6,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 
@@ -15,8 +13,6 @@ import static junit.framework.Assert.assertEquals;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class AllowEncryptionWithoutJCETest {
-
-    private static Logger log = LoggerFactory.getLogger(AllowEncryptionWithoutJCETest.class.getName());
 
     @InjectMocks
     private AllowEncryptionWithoutJCE allowEncryptionWithoutJCE;
@@ -28,15 +24,14 @@ public class AllowEncryptionWithoutJCETest {
 
     @Test
     public void testAfterPropertiesSet() throws Exception {
-        final Field field = Class.forName("javax.crypto.JceSecurity").getDeclaredField("isRestricted");
-        field.setAccessible(true);
-        log.debug("BEFORE:" + field.toString());
-        System.out.println("BEFORE:" + field.toString());
-        log.debug("BEFORE:" + field.get(null).toString());
-        System.out.println("BEFORE:" + field.get(null).toString());
+        Field field = null;
+        try {
+            field = Class.forName("javax.crypto.JceSecurity").getDeclaredField("isRestricted");
+            field.setAccessible(true);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         allowEncryptionWithoutJCE.afterPropertiesSet();
-        log.debug("AFTER:" + field.get(null).toString());
-        System.out.println("AFTER:" + field.get(null).toString());
         assertEquals(false, field.get(null));
     }
 }
