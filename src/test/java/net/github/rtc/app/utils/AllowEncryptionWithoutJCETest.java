@@ -25,6 +25,10 @@ public class AllowEncryptionWithoutJCETest {
     @Test
     public void testAfterPropertiesSet() throws Exception {
         Field field = null;
+        Field[] fields = Class.forName("javax.crypto.JceSecurity").getDeclaredFields();
+        for (int i = 0; i < fields.length; i++) {
+            System.err.println(fields[i]);
+        }
         try {
             field = Class.forName("javax.crypto.JceSecurity").getDeclaredField("isRestricted");
             field.setAccessible(true);
