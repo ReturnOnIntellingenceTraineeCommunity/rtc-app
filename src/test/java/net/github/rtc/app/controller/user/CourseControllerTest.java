@@ -51,6 +51,8 @@ public class CourseControllerTest {
     private CourseController controller;
 
     @Mock
+    private CourseSearchFilter courseSearchFilter;
+    @Mock
     private UserService userService;
     @Mock
     private CourseService courseService;

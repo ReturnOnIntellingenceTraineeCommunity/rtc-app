@@ -4,6 +4,7 @@ import net.github.rtc.app.controller.common.MenuItem;
 import net.github.rtc.app.model.dto.user.UserCourseDto;
 import net.github.rtc.app.model.entity.course.CourseStatus;
 import net.github.rtc.app.model.entity.course.CourseType;
+import net.github.rtc.app.model.entity.course.TimePeriod;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
 import net.github.rtc.app.service.course.CourseService;
 import net.github.rtc.app.service.order.UserCourseOrderService;
@@ -29,6 +30,8 @@ public class CourseController implements MenuItem {
     private static final String COURSES = "courses";
     private static final int COURSES_PER_PAGE = 9;
 
+    @Autowired
+    private CourseSearchFilter courseSearchFilter;
     @Autowired
     private CourseService courseService;
     @Autowired
@@ -82,9 +85,14 @@ public class CourseController implements MenuItem {
         return CourseType.values();
     }
 
+    @ModelAttribute("periods")
+    public TimePeriod[] getPeriods() {
+        return TimePeriod.values();
+    }
+
     @ModelAttribute("courseFilter")
     public CourseSearchFilter getCourseSearchFilter() {
-        final CourseSearchFilter filter = new CourseSearchFilter();
+        final CourseSearchFilter filter = courseSearchFilter;
         filter.setPerPage(COURSES_PER_PAGE);
         filter.setStatus(new HashSet<>(Arrays.asList(CourseStatus.PUBLISHED)));
         return filter;

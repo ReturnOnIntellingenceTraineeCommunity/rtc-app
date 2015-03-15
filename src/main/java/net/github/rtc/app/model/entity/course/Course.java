@@ -60,7 +60,7 @@ public class Course extends AbstractPersistenceObject implements Serializable, A
     @ForExport("Start date")
     private Date startDate;
     @NotNull
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     @ForExport("End date")
     private Date endDate;
     @Column

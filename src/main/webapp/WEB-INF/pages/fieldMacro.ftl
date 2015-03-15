@@ -455,7 +455,12 @@
     <img src="<@spring.url'/resources/images/user/c2.png'/>"  alt="..."  data-toggle="tooltip" data-placement="bottom" title="<@spring.message 'course.freeCapacity'/>">
     <#else >
     <img src="<@spring.url'/resources/images/user/c3.png'/>"  alt="..."  data-toggle="tooltip" data-placement="bottom" title="<@spring.message 'course.freeCapacity'/>">
-    </#if>
+    </#if><#--
+
+ -->&nbsp;<span data-toggle="tooltip" data-placement="bottom"
+            title="<@spring.message 'course.appliedCapacity'/>">${acceptedOrders}</span>/<#--
+       --><span data-toggle="tooltip" data-placement="bottom"
+            itle="<@spring.message 'course.totalCapacity'/>">${totalOrders}</span><br/>&nbsp;
 </#macro>
 
 
@@ -475,16 +480,31 @@
 </button>
 </#macro>
 
-<#macro courseImage types>
+<#macro courseImage types style>
 <#if types?size gt 1 >
-    <img src="<@spring.url'/resources/images/course/Proj.png'/>"  alt="..." style="width: 242px;height: 200px"><br/>
+    <img src="<@spring.url'/resources/images/course/Proj.png'/>"  alt="..." style="${style}"><br/>
     <#else>
         <#if types[0]=="QA">
-        <img src="<@spring.url'/resources/images/course/QA.png'/>"  alt="..." style="width: 242px;height: 200px"><br/>
+        <img src="<@spring.url'/resources/images/course/QA.png'/>"  alt="..." style="${style}"><br/>
         <#elseif types[0]=="BA">
-        <img src="<@spring.url'/resources/images/course/BA.png'/>"  alt="..." style="width: 242px;height: 200px"><br/>
+        <img src="<@spring.url'/resources/images/course/BA.png'/>"  alt="..." style="${style}"><br/>
         <#elseif types[0]=="DEV">
-        <img src="<@spring.url'/resources/images/course/Dev.png'/>"  alt="..." style="width: 242px;height: 200px"><br/>
+        <img src="<@spring.url'/resources/images/course/Dev.png'/>"  alt="..." style="${style}"><br/>
         </#if>
+    </#if>
+</#macro>
+
+<#assign MILLISECONDS_OF_DAY = 1000 * 60 * 60 * 24>
+<#assign DAY_OF_WEEK = 7>
+<#macro weekSpan startDate endDate>
+    <#assign days = ((endDate?date?long - startDate?date?long) / MILLISECONDS_OF_DAY )?round  >
+    <#if days < DAY_OF_WEEK >
+        <span>${days} day<#if days!=1>s</#if></span>
+        <#elseif days % DAY_OF_WEEK == 0>
+            <#assign week = (days/DAY_OF_WEEK)>
+            <span>${week} week<#if week!=1>s</#if></span>
+        <#else>
+            <#assign week = (days/DAY_OF_WEEK)?floor>
+            <span>${week}-${week+1} weeks</span>
     </#if>
 </#macro>

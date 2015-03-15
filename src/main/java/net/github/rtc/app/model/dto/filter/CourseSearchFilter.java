@@ -1,21 +1,25 @@
 package net.github.rtc.app.model.dto.filter;
 
-import net.github.rtc.app.model.entity.course.Course;
-import net.github.rtc.app.model.entity.course.CourseStatus;
-import net.github.rtc.app.model.entity.course.CourseType;
-import net.github.rtc.app.model.entity.course.Tag;
+import net.github.rtc.app.model.entity.course.*;
+import net.github.rtc.app.service.date.DateService;
 import org.hibernate.criterion.*;
 import org.hibernate.type.StringType;
+import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+@Component
 public class CourseSearchFilter extends AbstractSearchFilter {
+
 
     private static final String PERCENT = "%";
     private static final String TAGS = "tags";
     private static final String START_DATE = "startDate";
+    private static final String END_DATE = "endDate";
     private static final String EXPERTS = "experts";
     private static final String STATUS = "status";
     private String name;
@@ -26,6 +30,10 @@ public class CourseSearchFilter extends AbstractSearchFilter {
     private List<Tag> tags;
     private String expertCode;
     private boolean withArchived = false;
+    private TimePeriod timePeriod;
+
+    @Autowired
+    private DateService dateService;
 
     public char getDateMoreLessEq() {
         return dateMoreLessEq;
@@ -96,6 +104,14 @@ public class CourseSearchFilter extends AbstractSearchFilter {
         }
     }
 
+    public TimePeriod getTimePeriod() {
+        return timePeriod;
+    }
+
+    public void setTimePeriod(TimePeriod timePeriod) {
+        this.timePeriod = timePeriod;
+    }
+
     @Override
     public Order order() {
         return Order.desc("id");
@@ -113,6 +129,9 @@ public class CourseSearchFilter extends AbstractSearchFilter {
         if (startDate != null) {
             final DateCriteriaCreator dateCriteriaCreator = new DateCriteriaCreator(START_DATE, startDate);
             criteria.add(dateCriteriaCreator.getDateCriteria(dateMoreLessEq));
+        }
+        if (timePeriod != null) {
+            setTimePeriodCriteria(criteria, timePeriod);
         }
         if (tags != null && tags.size() > 0) {
             criteria.createAlias(TAGS, TAGS);
@@ -143,4 +162,30 @@ public class CourseSearchFilter extends AbstractSearchFilter {
         criteria.addOrder(Order.desc("createDate"));
         return criteria;
     }
+
+
+    private void setTimePeriodCriteria(DetachedCriteria criteria, TimePeriod timePeriod) {
+        final DateCriteriaCreator dateCriteriaCreator;
+
+        switch (timePeriod) {
+            case UPCOMING:
+                dateCriteriaCreator = new DateCriteriaCreator(START_DATE, dateService.getCurrentDate());
+                criteria.add(dateCriteriaCreator.getDateCriteria('>'));
+                break;
+
+            case FINISHED:
+                dateCriteriaCreator = new DateCriteriaCreator(END_DATE, dateService.getCurrentDate());
+                criteria.add(dateCriteriaCreator.getDateCriteria('<'));
+                break;
+
+            case CURRENT:
+                final DateTime today = new DateTime(dateService.getCurrentDate()).withTimeAtStartOfDay();
+                criteria.add(Restrictions.le(START_DATE, today.toDate()));
+                criteria.add(Restrictions.ge(END_DATE, today.toDate()));
+                break;
+
+            default: //nothing
+        }
+    }
+
 }
