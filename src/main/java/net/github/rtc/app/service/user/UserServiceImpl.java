@@ -105,9 +105,9 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
 
     @Override
     @Transactional
-    public Role getRoleByType(final RoleType type) {
+    public Role findRoleByType(final RoleType type) {
         LOG.debug("Getting user role with type: {}", type);
-        return userDao.getRoleByType(type);
+        return userDao.findRoleByType(type);
     }
 
     @Override
@@ -171,7 +171,7 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
     @Override
     public void registerUser(User user, MultipartFile img) {
         user.setStatus(UserStatus.ACTIVE);
-        user.setAuthorities(Arrays.asList(getRoleByType(RoleType.ROLE_USER)));
+        user.setAuthorities(Arrays.asList(findRoleByType(RoleType.ROLE_USER)));
         user.setRegisterDate(dateService.getCurrentDate());
         create(user, img, true);
 

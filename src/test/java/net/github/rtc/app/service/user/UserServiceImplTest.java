@@ -119,8 +119,8 @@ public class UserServiceImplTest extends AbstractCrudEventsServiceTest {
 
     @Test
     public void testGetRoleByType() {
-        userService.getRoleByType(RoleType.ROLE_USER);
-        verify(userDao).getRoleByType(RoleType.ROLE_USER);
+        userService.findRoleByType(RoleType.ROLE_USER);
+        verify(userDao).findRoleByType(RoleType.ROLE_USER);
     }
 
     @Test
@@ -227,7 +227,7 @@ public class UserServiceImplTest extends AbstractCrudEventsServiceTest {
 
         when(userDao.create(any(User.class))).thenReturn(user);
         Role role = new Role(RoleType.ROLE_USER);
-        when(userDao.getRoleByType(RoleType.ROLE_USER)).thenReturn(role);
+        when(userDao.findRoleByType(RoleType.ROLE_USER)).thenReturn(role);
 
         userService.registerUser(user, image);
 

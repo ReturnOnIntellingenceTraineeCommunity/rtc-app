@@ -28,7 +28,7 @@ public interface UserService extends ModelService<User>, UserDetailsService, Gen
      * @param type type of the role
      * @return role object
      */
-    Role getRoleByType(RoleType type);
+    Role findRoleByType(RoleType type);
 
     /**
      * Find all users with specified authority

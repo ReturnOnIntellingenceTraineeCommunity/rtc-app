@@ -32,7 +32,7 @@ public interface UserDao extends GenericDao<User> {
      * @param type the type of role that needs to be found
      * @return role that was found
      */
-    Role getRoleByType(RoleType type);
+    Role findRoleByType(RoleType type);
 
     /**
      * Create role with specified type

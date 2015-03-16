@@ -39,8 +39,8 @@ public class CustomRoleEditorTest {
 
     @Test
     public void testSetAsText() {
-        when(userService.getRoleByType(RoleType.ROLE_ADMIN)).thenReturn(role1);
-        when(userService.getRoleByType(RoleType.ROLE_EXPERT)).thenReturn(role2);
+        when(userService.findRoleByType(RoleType.ROLE_ADMIN)).thenReturn(role1);
+        when(userService.findRoleByType(RoleType.ROLE_EXPERT)).thenReturn(role2);
         customRoleEditor.setAsText(testString);
         List<Role> roles = (List<Role>) customRoleEditor.getValue();
         assertEquals(2, roles.size());

@@ -31,7 +31,7 @@ public class CustomRoleEditor extends PropertyEditorSupport {
         final Collection<Role> roles = new ArrayList<>();
         if (!rolesSplit.get(0).isEmpty()) {
             for (final String roleName : rolesSplit) {
-               roles.add(userService.getRoleByType(EnumHelper.getTypeByString(RoleType.class, roleName)));
+               roles.add(userService.findRoleByType(EnumHelper.getTypeByString(RoleType.class, roleName)));
             }
         }
         this.setValue(roles);

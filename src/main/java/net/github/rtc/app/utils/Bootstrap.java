@@ -29,18 +29,18 @@ public class Bootstrap implements InitializingBean {
 
     public void loadTestUsers() {
         if (userService.loadUserByUsername(ADMIN_EMAIL) == null) {
-            if (userService.getRoleByType(RoleType.ROLE_ADMIN) == null) {
+            if (userService.findRoleByType(RoleType.ROLE_ADMIN) == null) {
                 userService.createRole(RoleType.ROLE_ADMIN);
             }
-            if (userService.getRoleByType(RoleType.ROLE_USER) == null) {
+            if (userService.findRoleByType(RoleType.ROLE_USER) == null) {
                 userService.createRole(RoleType.ROLE_USER);
             }
-            if (userService.getRoleByType(RoleType.ROLE_EXPERT) == null) {
+            if (userService.findRoleByType(RoleType.ROLE_EXPERT) == null) {
                 userService.createRole(RoleType.ROLE_EXPERT);
             }
 
             final User admin = new User("TestName", "TestMiddlename", "TestSurname", ADMIN_EMAIL, ADMIN);
-            admin.setAuthorities(Arrays.asList(userService.getRoleByType(RoleType.ROLE_ADMIN)));
+            admin.setAuthorities(Arrays.asList(userService.findRoleByType(RoleType.ROLE_ADMIN)));
             admin.setRegisterDate(dateService.getCurrentDate());
             admin.setGender("Male");
             admin.setPhone("123456");

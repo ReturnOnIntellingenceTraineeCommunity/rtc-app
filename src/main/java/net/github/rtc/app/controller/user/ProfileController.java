@@ -70,7 +70,7 @@ public class ProfileController implements MenuItem {
     @RequestMapping(value = "/update", headers = "content-type=multipart/*", method = RequestMethod.POST)
     public ModelAndView update(@ModelAttribute(USER) final User user,
                                @RequestParam(value = "uploadPhoto", required = false) MultipartFile img) {
-        user.setAuthorities(Arrays.asList(userService.getRoleByType(RoleType.ROLE_USER)));
+        user.setAuthorities(Arrays.asList(userService.findRoleByType(RoleType.ROLE_USER)));
         userService.update(user, img, IS_ACTIVE);
         final Authentication request = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         authenticationManager.authenticate(request);
