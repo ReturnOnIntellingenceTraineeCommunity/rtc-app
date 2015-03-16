@@ -25,7 +25,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:mvc-dao-test.xml" )
+@ContextConfiguration(locations = "classpath:mvc-test.xml" )
 public class AdditionalTagsRenderTest {
 
     @InjectMocks
