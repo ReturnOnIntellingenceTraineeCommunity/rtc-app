@@ -45,7 +45,7 @@ public class MailMessageBuilder {
         templateParam.put("link", LINK);
 
         String text = templateStringBuilder.build(TEMPLATE_PATH, templateParam);
-        if (text.equals(templateStringBuilder.UNKNOWN_VALUE)) {
+        if (text.equals(TemplateStringBuilder.UNKNOWN_VALUE)) {
             text = "Welcome," + name + "! ";
         }
 
