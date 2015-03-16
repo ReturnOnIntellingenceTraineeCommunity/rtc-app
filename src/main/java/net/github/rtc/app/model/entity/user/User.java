@@ -125,7 +125,6 @@ public class User extends AbstractPersistenceObject implements UserDetails, Audi
 
     @NotNull
     @Column
-    @Temporal(TemporalType.DATE)
     @ForExport("Register Date")
     private Date registerDate;
 
