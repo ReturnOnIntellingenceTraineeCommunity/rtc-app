@@ -1,19 +1,16 @@
 <#import "../layout/layout.ftl" as layout/>
 <#import "../../../fieldMacro.ftl" as formMacro />
 
-<script src="<@spring.url'/resources/js/jquery/jquery-1.11.1.min.js'/>"></script>
-<script src="<@spring.url'/resources/js/bootstrap.min.js'/>" type="text/javascript"></script>
-
-
 <@layout.layout>
 <input type="hidden" id="withArchive" value="true">
 <input type="hidden" id="varTimePeriod" value="">
-<div class="panel panel-default"
-     style="float: none; padding-bottom: 10px; padding-top: 10px; margin-bottom: 50px; background-color: darkseagreen;">
+<input type="hidden" id="currentCourseType" value="">
+<nav class="navbar navbar-inverse"
+     style="float: none; padding-bottom: 10px; padding-top: 10px; margin-bottom: 50px;">
 
     <div class="row">
-        <div class="col-md-6" style="text-align: center">
-            <div class="btn-group" data-toggle="buttons">
+        <div class="col-md-6" >
+            <div class="btn-group period-group" data-toggle="buttons" style="margin-left: 10px">
                 <label onclick="setPeriod('')" class="btn btn-default active">
                     <input type="radio" id="asd" name="options" value=""> <@spring.message "courses.period.ALL"/>
                 </label>
@@ -26,23 +23,31 @@
             </div>
         </div>
 
-        <div class="col-md-6" style="text-align: center">
-            <div class="form-group"><h4 class="control-label col-md-4" for="types">
-                <strong><@spring.message "courses.catalog"/></strong></h4>
-
-                <div class="col-md-5">
-                    <select id='types' class="form-control">
-                        <option value=""><@spring.message "courses.types.All"/></option>
-                        <#list courseTypes as type>
-                            <option value="${type}"><@spring.message "courses.types.${type}"/></option>
-                        </#list>
-                    </select>
-                </div>
+        <div class="col-md-3" >
+            <div class="btn-group col-md-3">
+                <button type="button" class="btn btn-default dropdown-toggle "
+                        data-toggle="dropdown" aria-expanded="false" style="width: 180px">
+                    <span id="currentType"><@spring.message "courses.types.AllCat"/></span><span class="caret"></span>
+                </button>
+                <ul  class="dropdown-menu" role="menu">
+                    <li><a href="#" class="typeRef" value=""><@spring.message "courses.types.AllCat"/></a></li>
+                    <#list courseTypes as type>
+                        <li><a href="#" class="typeRef" value="${type}"><@spring.message "courses.types.${type}"/></a></li>
+                    </#list>
+                </ul>
             </div>
         </div>
 
+        <div class="col-md-3">
+            <div class="input-group col-md-7" style="margin-right: 5px;">
+                <input id="courseKeyword" type="text" class="form-control" placeholder="<@spring.message "courses.placeholder.search"/>">
+              <span class="input-group-btn">
+                <button onclick="searchKey()" class="btn btn-default" type="button" style="width: 30px">&nbsp;<span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+              </span>
+            </div>
+        </div>
     </div>
-</div>
+</nav>
 
 <div id="coursesContent">
 
@@ -55,8 +60,10 @@
         searchReset(1);
     });
 
-    $("#types").change(function (event) {
+    $(".typeRef").click(function (event) {
         event.preventDefault();
+        $("#currentType").text($(this).text());
+        $("#currentCourseType").val(this.getAttribute("value"));
         searchReset(1);
     });
 
@@ -64,6 +71,14 @@
         $("#varTimePeriod").val(period);
         searchReset(1);
     }
+
+    function searchKey() {
+        searchReset(1);
+    }
+
+    $(".period-group > .btn").click(function(){
+        $(this).addClass("active").siblings().removeClass("active");
+    });
 
     $("#coursesContent").on("click", ".navButton", function (event) {
         event.preventDefault();
@@ -107,10 +122,11 @@
     function search(page, collbackSucces) {
         var withArchive = $("#withArchive").val();
         var timePeriod = $("#varTimePeriod").val();
-        var type = $("#types").val();
+        var type = $("#currentCourseType").val();
+        var keyword = $("#courseKeyword").val();
         $.ajax({
             type: "POST",
-            data: "types=" + type + "&page=" + page + "&withArchived=" + withArchive + "&timePeriod=" + timePeriod,
+            data: "types=" + type + "&page=" + page + "&withArchived=" + withArchive + "&timePeriod=" + timePeriod + "&name=" + keyword,
             url: "<@spring.url "/user/courses/courseTable"/>",
             success: function (result) {
                 collbackSucces(result);

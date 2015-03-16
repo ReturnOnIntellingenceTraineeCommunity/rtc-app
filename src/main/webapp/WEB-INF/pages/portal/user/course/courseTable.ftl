@@ -6,7 +6,7 @@
 <#list courses as course>
     <div class="span9">
 
-        <div class="panel panel-default" style=" background-color: CEE3F6 ; border: 3px solid #81BEF7;">
+        <div class="panel panel-default" style=" background-color: #deecf6 ; border: 3px solid #81BEF7;">
 
             <div class="panel-body"
                  style="text-align:left; padding-left: 25px; padding-right: 25px; padding-bottom: 0px;
@@ -73,7 +73,7 @@
 <div class="row" style="text-align: center">
     <#if lastPage gt 1>
         <#if currentPage != lastPage>
-            <a href="#" type="button" class="btn btn-primary" id="loadMore" page="${currentPage+1}">load more</a>
+            <a href="#" type="button" class="btn btn-info" id="loadMore" page="${currentPage+1}">load more</a>
         </#if>
     </#if>
 </div> <#-- load more button-->

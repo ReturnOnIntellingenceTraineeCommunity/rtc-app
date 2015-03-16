@@ -11,7 +11,11 @@
     top: 0px;
     left: 0px;
 }
-
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../Bootstrap/fonts/glyphicons-halflings-regular.eot');
+    src: url('../Bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../Bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../Bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../Bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
 .nav-sidebar li.active a:hover {
  background-color: #428bca;
 }
