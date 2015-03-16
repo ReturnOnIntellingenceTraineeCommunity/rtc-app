@@ -38,6 +38,7 @@ public class UserController implements MenuItem {
     private static final String ROOT = "portal/admin";
     private static final String REDIRECT_USER_PAGE = "redirect:/admin/user/view/";
     private static final String REDIRECT_ADMIN_SEARCH = "redirect:/admin/search";
+    private static final String REDIRECT_USER_SEARCH_PAGE = "redirect:/admin/search/user";
     private static final String UPDATE_VIEW = "/user/userUpdate";
     private static final String CREATE_VIEW = "/user/userCreate";
     private static final String DETAILS_VIEW = "/user/userDetails";
@@ -104,13 +105,13 @@ public class UserController implements MenuItem {
     @RequestMapping(value = "/inactivate/{userCode}", method = RequestMethod.GET)
     public String setStatusInactive(@PathVariable final String userCode) {
         userService.inactivateUser(userCode);
-        return REDIRECT_ADMIN_SEARCH;
+        return REDIRECT_USER_SEARCH_PAGE;
     }
 
     @RequestMapping(value = "/activate/{userCode}", method = RequestMethod.GET)
     public String setStatusActive(@PathVariable final String userCode) {
         userService.activateUser(userCode);
-        return REDIRECT_ADMIN_SEARCH;
+        return REDIRECT_USER_SEARCH_PAGE;
     }
 
     @RequestMapping(value = "/getExperts", method = RequestMethod.GET)
