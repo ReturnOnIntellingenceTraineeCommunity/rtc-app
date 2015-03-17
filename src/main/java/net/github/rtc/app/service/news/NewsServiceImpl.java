@@ -44,7 +44,7 @@ public class NewsServiceImpl extends AbstractCrudEventsService<News> implements 
         if (isPublished) {
             setPublishedAttribute(news);
         }
-        
+
         news.setAuthor(AuthorizedUserProvider.getAuthorizedUser());
         return update(news);
     }
