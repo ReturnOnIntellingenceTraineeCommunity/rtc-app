@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 public class LastSearchCommand {
 
     private SearchFilter searchFilter;
+    private String menuItem;
 
     /**
      * Sets last performed search filtering operation
@@ -21,6 +22,14 @@ public class LastSearchCommand {
      */
     public void setLastFilter(SearchFilter searchFilter) {
         this.searchFilter = searchFilter;
+    }
+
+    public void setMenuItem(String menuItem) {
+        this.menuItem = menuItem;
+    }
+
+    public String getMenuItem() {
+        return menuItem;
     }
 
     /**

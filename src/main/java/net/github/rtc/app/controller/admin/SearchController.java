@@ -47,14 +47,18 @@ public class SearchController {
     private static final String TYPES = "types";
     private static final String COURSE_FILTER = "courseFilter";
     private static final String COURSE_CATIGORIES = "courseCategories";
+    private static final String USER = "user";
     private static final String USERS = "users";
     private static final String USER_AUTHORITIES = "userAuthorities";
     private static final String USER_FILTER = "userFilter";
+    private static final String COURSE = "course";
     private static final String COURSES = "courses";
+    private static final String EXPORT = "export";
     private static final String EXPORTS = "exports";
     private static final String EXPORT_FILTER = "exportFilter";
     private static final String EXPERTS = "experts";
     private static final String MENU_ITEM = "menuItem";
+    private static final String ACTIVITY = "activity";
     private static final String ACTIVITY_FILTER = "activityFilter";
     private static final String ACTIVITY_ENTITIES = "activityEntities";
     private static final String ACTIVITY_ACTIONS = "activityActions";
@@ -88,9 +92,10 @@ public class SearchController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String searchPage(@RequestParam(value = MENU_ITEM, required = false) String menuItem, RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute(MENU_ITEM, menuItem);
-        return ROOT + "/search/searchPage";
+    public ModelAndView searchPage() {
+        final ModelAndView mav = new ModelAndView(ROOT + "/search/searchPage");
+        mav.addObject(MENU_ITEM, lastSearchCommand.getMenuItem());
+        return mav;
     }
 
     @RequestMapping(value = "/activityTable", method = RequestMethod.POST)
@@ -102,6 +107,7 @@ public class SearchController {
         mav.addAllObjects(results.getPageModel().getPageParams());
         mav.addObject(ACTIVITIES, results.getResults());
         lastSearchCommand.setLastFilter(activityFilter);
+        lastSearchCommand.setMenuItem(ACTIVITY);
         return mav;
     }
 
@@ -114,6 +120,7 @@ public class SearchController {
         mav.addAllObjects(results.getPageModel().getPageParams());
         mav.addObject(NEWS, results.getResults());
         lastSearchCommand.setLastFilter(newsFilter);
+        lastSearchCommand.setMenuItem(NEWS);
         return mav;
     }
 
@@ -129,6 +136,7 @@ public class SearchController {
         mav.addObject(COURSE_STATUSES, getCourseStatuses());
         mav.addObject(COURSE_FILTER, courseFilter);
         lastSearchCommand.setLastFilter(courseFilter);
+        lastSearchCommand.setMenuItem(COURSE);
         return mav;
     }
 
@@ -141,6 +149,7 @@ public class SearchController {
         mav.addAllObjects(results.getPageModel().getPageParams());
         mav.addObject(USERS, results.getResults());
         lastSearchCommand.setLastFilter(userFilter);
+        lastSearchCommand.setMenuItem(USER);
         return mav;
     }
 
@@ -153,6 +162,7 @@ public class SearchController {
         mav.addAllObjects(results.getPageModel().getPageParams());
         mav.addObject(EXPORTS, results.getResults());
         lastSearchCommand.setLastFilter(exportFilter);
+        lastSearchCommand.setMenuItem(EXPORT);
         return mav;
     }
 
@@ -163,6 +173,7 @@ public class SearchController {
         final ModelAndView mav = new ModelAndView(ROOT + SEARCH_PAGE + "/logsSearchTable");
         mav.addAllObjects(logService.search(logsFilter));
         lastSearchCommand.setLastFilter(logsFilter);
+        lastSearchCommand.setMenuItem(LOGS);
         return mav;
     }
 
