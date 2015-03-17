@@ -2,7 +2,9 @@ package net.github.rtc.app.service.message;
 
 import net.github.rtc.app.model.dto.message.MessageDto;
 import net.github.rtc.app.model.entity.message.Message;
+import net.github.rtc.app.model.entity.message.MessageStatus;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
+import net.github.rtc.app.model.entity.user.User;
 import net.github.rtc.app.service.generic.GenericService;
 import net.github.rtc.app.model.dto.SearchResults;
 import net.github.rtc.app.model.dto.filter.MessageSearchFilter;
@@ -22,7 +24,7 @@ public interface MessageService extends GenericService<Message> {
      * @return search results for user view presented as DTO
      * @see net.github.rtc.app.model.dto.message.MessageDto
      */
-    SearchResults<MessageDto> searchMessagesForUser(MessageSearchFilter searchFilter);
+    SearchResults<MessageDto> searchUserMessages(MessageSearchFilter searchFilter);
 
     /**
      * If message has isRead property false set it to true
@@ -30,14 +32,14 @@ public interface MessageService extends GenericService<Message> {
      * @param messageCode code of the message for what operation will be performed
      * @return updated message
      */
-    Message readMessage(String messageCode);
+    Message getMessage(String messageCode);
 
     /**
      * Get how much unread messages user have
-     * @param userCode code of user for what operation will be performed
+     * @param user user for what operation will be performed
      * @return count of unread messages
      */
-    int getUserUnreadMessageCount(String userCode);
+    int getMessageCountByUserAndStatus(User user, MessageStatus status);
 
     /**
      * Create order response message abd persist its to db

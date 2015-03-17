@@ -2,6 +2,7 @@ package net.github.rtc.app.model.dto.filter;
 
 import net.github.rtc.app.model.entity.message.Message;
 import net.github.rtc.app.model.entity.message.MessageStatus;
+import net.github.rtc.app.model.entity.user.User;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -12,20 +13,20 @@ public class MessageSearchFilter extends AbstractSearchFilter {
 
     private static final String SENDING_DATE = "sendingDate";
     private static final String IS_READ = "isRead";
-    private static final String RECEIVER_USER_CODE = "receiverUserCode";
+    private static final String RECEIVER = "receiver";
 
 
     private MessageStatus status;
     private Date sendingDate;
     private char dateMoreLessEq;
-    private String userCode;
+    private User user;
 
-    public String getUserCode() {
-        return userCode;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public MessageStatus getStatus() {
@@ -64,8 +65,8 @@ public class MessageSearchFilter extends AbstractSearchFilter {
     public DetachedCriteria getCriteria() {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Message.class);
 
-        if (userCode != null && !("").equals(userCode)) {
-            criteria.add(Restrictions.eq(RECEIVER_USER_CODE, userCode));
+        if (user != null && !("").equals(user)) {
+            criteria.add(Restrictions.eq(RECEIVER, user));
         }
 
         if (sendingDate != null) {

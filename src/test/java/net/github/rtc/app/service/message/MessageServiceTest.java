@@ -6,7 +6,9 @@ import net.github.rtc.app.model.dto.SearchResults;
 import net.github.rtc.app.model.dto.filter.MessageSearchFilter;
 import net.github.rtc.app.model.entity.activity.Activity;
 import net.github.rtc.app.model.entity.message.Message;
+import net.github.rtc.app.model.entity.message.MessageStatus;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
+import net.github.rtc.app.model.entity.user.User;
 import net.github.rtc.app.service.builder.message.OrderResponseMessageBuilder;
 import net.github.rtc.app.service.builder.message.OrderSendMessageBuilder;
 import net.github.rtc.app.service.user.UserService;
@@ -57,7 +59,7 @@ public class MessageServiceTest {
         searchResults.setResults(new ArrayList());
         searchResults.setPageModel(new PageModel());
         when(messageService.search(any(MessageSearchFilter.class))).thenReturn(searchResults);
-        SearchResults test = messageService.searchMessagesForUser(new MessageSearchFilter());
+        SearchResults test = messageService.searchUserMessages(new MessageSearchFilter());
         assertTrue(isEqualSearchResults(test, searchResults));
     }
 
@@ -68,13 +70,14 @@ public class MessageServiceTest {
         expected.setRead(true);
         when(messageService.findByCode(anyString())).thenReturn(message);
         when(messageDao.update(any(Message.class))).thenReturn(message);
-        assertTrue((messageService.readMessage(CODE)).equals(expected));
+        assertTrue((messageService.getMessage(CODE)).equals(expected));
     }
 
     @Test
     public void testGetUserUnreadMessageCount() {
-        when(messageDao.getUnreadMessageCount(CODE)).thenReturn(new Integer(0));
-        assertEquals(0, messageService.getUserUnreadMessageCount(CODE));
+        User user = new User();
+        when(messageDao.getMessageCountByUserAndStatus(user, MessageStatus.UNREAD)).thenReturn(new Integer(0));
+        assertEquals(0, messageService.getMessageCountByUserAndStatus(user, MessageStatus.UNREAD));
     }
 
     @Test

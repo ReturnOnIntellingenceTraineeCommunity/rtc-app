@@ -37,12 +37,13 @@ public class OrderSendMessageBuilder {
 
         for (User expert : course.getExperts()) {
             final Message msg = new Message();
-            msg.setSenderUserCode(order.getUserCode());
+            final User sender = userService.findByCode(order.getUserCode());
+            msg.setSender(sender);
             msg.setSendingDate(dateService.getCurrentDate());
             msg.setType(MessageType.SYSTEM);
             msg.setSubject(getMessageSubject());
             msg.setDescription(getMessageDescription(order));
-            msg.setReceiverUserCode(expert.getCode());
+            msg.setReceiver(expert);
             msgList.add(msg);
         }
         return msgList;

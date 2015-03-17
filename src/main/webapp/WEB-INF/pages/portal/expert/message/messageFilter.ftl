@@ -1,6 +1,6 @@
 <#import "../../../fieldMacro.ftl" as formMacro />
 <h4><strong><@spring.message "message.criteria"/></strong></h4>
-<@spring.formHiddenInput "messageFilter.userCode" />
+<@spring.formHiddenInput "messageFilter.user" />
 <div class="form-horizontal">
     <div class="row">
         <div class="col-md-4">

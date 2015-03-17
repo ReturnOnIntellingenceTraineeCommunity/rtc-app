@@ -1,6 +1,7 @@
 package net.github.rtc.app.model.entity.message;
 
 import net.github.rtc.app.model.entity.AbstractPersistenceObject;
+import net.github.rtc.app.model.entity.user.User;
 import net.github.rtc.util.annotation.validation.Validatable;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -15,13 +16,13 @@ public class Message extends AbstractPersistenceObject {
 
     private static final int SUBJECT_LENGTH = 50;
 
-    @NotEmpty
-    @Column
-    private String receiverUserCode;
+    @OneToOne
+    @JoinColumn(name = "receiver")
+    private User receiver;
 
-    @NotEmpty
-    @Column
-    private String senderUserCode;
+    @OneToOne
+    @JoinColumn(name = "sender")
+    private User sender;
 
     @Length(max = SUBJECT_LENGTH)
     @NotEmpty
@@ -50,9 +51,9 @@ public class Message extends AbstractPersistenceObject {
     public Message() {
     }
 
-    public Message(String receiverUserCode, String senderUserCode, String subject, String description, Date sendingDate, MessageType type) {
-        this.receiverUserCode = receiverUserCode;
-        this.senderUserCode = senderUserCode;
+    public Message(User receiver, User sender, String subject, String description, Date sendingDate, MessageType type) {
+        this.receiver = receiver;
+        this.sender = sender;
         this.subject = subject;
         this.description = description;
         if (sendingDate != null) {
@@ -62,20 +63,20 @@ public class Message extends AbstractPersistenceObject {
     }
 
 
-    public String getReceiverUserCode() {
-        return receiverUserCode;
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setReceiverUserCode(String receiverUserCode) {
-        this.receiverUserCode = receiverUserCode;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
-    public String getSenderUserCode() {
-        return senderUserCode;
+    public User getSender() {
+        return sender;
     }
 
-    public void setSenderUserCode(String senderUserCode) {
-        this.senderUserCode = senderUserCode;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
     public Date getSendingDate() {
@@ -129,9 +130,9 @@ public class Message extends AbstractPersistenceObject {
 
         if (isRead != message.isRead) { return true; }
         if (description != null ? !description.equals(message.description) : message.description != null) { return true; }
-        if (receiverUserCode != null ? !receiverUserCode.equals(message.receiverUserCode) : message.receiverUserCode != null)
+        if (receiver != null ? !receiver.equals(message.receiver) : message.receiver != null)
             { return true; }
-        if (senderUserCode != null ? !senderUserCode.equals(message.senderUserCode) : message.senderUserCode != null)
+        if (sender != null ? !sender.equals(message.sender) : message.sender != null)
             { return true; }
         if (sendingDate != null ? !sendingDate.equals(message.sendingDate) : message.sendingDate != null) { return true; }
         if (subject != null ? !subject.equals(message.subject) : message.subject != null) { return true; }
@@ -143,8 +144,8 @@ public class Message extends AbstractPersistenceObject {
     @Override
     public int hashCode() {
         final int hashMultiplier = 31;
-        int result = receiverUserCode != null ? receiverUserCode.hashCode() : 0;
-        result = hashMultiplier * result + (senderUserCode != null ? senderUserCode.hashCode() : 0);
+        int result = receiver != null ? receiver.hashCode() : 0;
+        result = hashMultiplier * result + (sender != null ? sender.hashCode() : 0);
         result = hashMultiplier * result + (subject != null ? subject.hashCode() : 0);
         result = hashMultiplier * result + (description != null ? description.hashCode() : 0);
         result = hashMultiplier * result + (sendingDate != null ? sendingDate.hashCode() : 0);
