@@ -18,7 +18,7 @@ import java.util.*;
 public class LogServiceImpl implements LogService {
 
     //todo: maybe move it to property file and use @Value?
-    private static final String PATH_FOLDER = "/tmp/";
+    private static final String PATH_FOLDER = "/var/log/rtc-app/logs/";
     private static final int BEGIN_INDEX = 22;
     private static final int BYTES = 1024;
 

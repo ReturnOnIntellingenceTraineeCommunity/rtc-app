@@ -13,8 +13,12 @@ public class MessageDaoImpl extends AbstractGenericDaoImpl<Message> implements M
 
     @Override
     public int getMessageCountByUserAndStatus(User user, MessageStatus status) {
+        boolean isRead = false;
+        if (status == MessageStatus.READ) {
+            isRead = true;
+        }
         return ((Long) getCurrentSession().createCriteria(Message.class).
-                add(Restrictions.eq("receiver", user)).add(Restrictions.eq("isRead", false)).
+                add(Restrictions.eq("receiver", user)).add(Restrictions.eq("isRead", isRead)).
                 setProjection(Projections.rowCount()).uniqueResult()).intValue();
     }
 }
