@@ -19,6 +19,7 @@ import java.util.Set;
 @Component
 public class ActivitySearchFilter extends AbstractSearchFilter {
 
+    private static final String PERCENT = "%";
     private static final String DATE = "actionDate";
     private String user;
     private Set<ActivityEntity> entity;
@@ -78,7 +79,7 @@ public class ActivitySearchFilter extends AbstractSearchFilter {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Activity.class);
 
         if (user != null && !("").equals(user)) {
-            criteria.add(Restrictions.like("username", user));
+            criteria.add(Restrictions.like("username", PERCENT + user + PERCENT));
         }
         if (date != null) {
             final DateCriteriaCreator dateCriteriaCreator = new DateCriteriaCreator(DATE, date);
