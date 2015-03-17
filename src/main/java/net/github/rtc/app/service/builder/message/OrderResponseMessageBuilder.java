@@ -4,10 +4,12 @@ import net.github.rtc.app.model.entity.message.Message;
 import net.github.rtc.app.model.entity.message.MessageType;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
 import net.github.rtc.app.model.entity.order.UserRequestStatus;
+import net.github.rtc.app.model.entity.user.User;
 import net.github.rtc.app.service.course.CourseService;
 import net.github.rtc.app.service.date.DateService;
 import net.github.rtc.app.service.security.AuthorizedUserProvider;
 import net.github.rtc.app.service.builder.TemplateStringBuilder;
+import net.github.rtc.app.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -39,12 +41,16 @@ public class OrderResponseMessageBuilder {
     private CourseService courseService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private MessageSource messageSource;
 
     public List<Message> build(UserCourseOrder order) {
         final Message msg = new Message();
-        msg.setSenderUserCode(AuthorizedUserProvider.getAuthorizedUser().getCode());
-        msg.setReceiverUserCode(order.getUserCode());
+        final User receiver = userService.findByCode(order.getUserCode());
+        msg.setSender(AuthorizedUserProvider.getAuthorizedUser());
+        msg.setReceiver(receiver);
         msg.setSendingDate(dateService.getCurrentDate());
         msg.setType(MessageType.SYSTEM);
         msg.setSubject(getSubjectText(order.getStatus()));

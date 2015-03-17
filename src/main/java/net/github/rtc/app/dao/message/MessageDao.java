@@ -2,6 +2,8 @@ package net.github.rtc.app.dao.message;
 
 import net.github.rtc.app.dao.generic.GenericDao;
 import net.github.rtc.app.model.entity.message.Message;
+import net.github.rtc.app.model.entity.message.MessageStatus;
+import net.github.rtc.app.model.entity.user.User;
 
 import javax.annotation.Resource;
 
@@ -13,9 +15,9 @@ import javax.annotation.Resource;
 public interface MessageDao  extends GenericDao<Message> {
 
     /**
-     * Get count of  user messages with isRead = false
-     * @param userCode code of user for what messages needs to be found
-     * @return count of unread messages
+     * Get count of  user messages with isRead = status
+     * @param user user for what messages needs to be found
+     * @return count of messages match status
      */
-    int getUnreadMessageCount(String userCode);
+    int getMessageCountByUserAndStatus(User user, MessageStatus status);
 }

@@ -38,7 +38,7 @@ public class MessageController implements MenuItem {
     @RequestMapping(value = "/messageTable", method = RequestMethod.GET)
     public ModelAndView messageTable(@ModelAttribute(MESSAGE_FILTER) MessageSearchFilter searchFilter) {
         final ModelAndView mav = new ModelAndView(getRoot() + "/messageTable");
-        final SearchResults<MessageDto> searchResults = messageService.searchMessagesForUser(searchFilter);
+        final SearchResults<MessageDto> searchResults = messageService.searchUserMessages(searchFilter);
 
         mav.addObject(MESSAGES, searchResults.getResults());
         mav.addAllObjects(searchResults.getPageModel().getPageParams());
@@ -49,9 +49,9 @@ public class MessageController implements MenuItem {
     public ModelAndView getMessageDetail(@PathVariable String code,
                                          @ModelAttribute("profileHeader") ProfileHeaderDto headerDto) {
         final ModelAndView mav = new ModelAndView(getRoot() + "/messageDetails");
-        mav.addObject("message", messageService.readMessage(code));
-        headerDto.setUnreadMessageCount(messageService.getUserUnreadMessageCount(
-                AuthorizedUserProvider.getAuthorizedUser().getCode()));
+        mav.addObject("message", messageService.getMessage(code));
+        headerDto.setUnreadMessageCount(messageService.getMessageCountByUserAndStatus(
+                AuthorizedUserProvider.getAuthorizedUser(), MessageStatus.UNREAD));
         return mav;
     }
 
@@ -64,13 +64,13 @@ public class MessageController implements MenuItem {
     @RequestMapping(value = "/unreadMessages", method = RequestMethod.GET)
     @ResponseBody
     public int getUnreadMessage() {
-        return messageService.getUserUnreadMessageCount(AuthorizedUserProvider.getAuthorizedUser().getCode());
+        return messageService.getMessageCountByUserAndStatus(AuthorizedUserProvider.getAuthorizedUser(), MessageStatus.UNREAD);
     }
 
     @ModelAttribute(MESSAGE_FILTER)
     public MessageSearchFilter getMessageSearchFilter() {
         final MessageSearchFilter messageSearchFilter = new MessageSearchFilter();
-        messageSearchFilter.setUserCode(AuthorizedUserProvider.getAuthorizedUser().getCode());
+        messageSearchFilter.setUser(AuthorizedUserProvider.getAuthorizedUser());
         return messageSearchFilter;
     }
 

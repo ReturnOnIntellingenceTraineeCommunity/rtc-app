@@ -4,11 +4,12 @@ import net.github.rtc.app.dao.generic.GenericDao;
 import net.github.rtc.app.dao.message.MessageDao;
 import net.github.rtc.app.model.dto.message.MessageDto;
 import net.github.rtc.app.model.entity.message.Message;
+import net.github.rtc.app.model.entity.message.MessageStatus;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
+import net.github.rtc.app.model.entity.user.User;
 import net.github.rtc.app.service.builder.message.OrderResponseMessageBuilder;
 import net.github.rtc.app.service.builder.message.OrderSendMessageBuilder;
 import net.github.rtc.app.service.generic.AbstractGenericServiceImpl;
-import net.github.rtc.app.service.user.UserService;
 import net.github.rtc.app.model.dto.SearchResults;
 import net.github.rtc.app.service.builder.SearchResultsBuilder;
 import net.github.rtc.app.service.builder.SearchResultsMapper;
@@ -26,9 +27,6 @@ public class MessageServiceImpl  extends AbstractGenericServiceImpl<Message> imp
     private MessageDao messageDao;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private OrderResponseMessageBuilder orderResponseMessageBuilder;
 
     @Autowired
@@ -40,14 +38,14 @@ public class MessageServiceImpl  extends AbstractGenericServiceImpl<Message> imp
     }
 
     @Override
-    public SearchResults<MessageDto> searchMessagesForUser(MessageSearchFilter searchFilter) {
+    public SearchResults<MessageDto> searchUserMessages(MessageSearchFilter searchFilter) {
             final SearchResultsBuilder<Message, MessageDto> resultsBuilder = new SearchResultsBuilder<>();
             return resultsBuilder.setSearchResultsToTransform(search(searchFilter)).
                     setSearchResultsMapper(getMessageMapper()).build();
     }
 
     @Override
-    public Message readMessage(String messageCode) {
+    public Message getMessage(String messageCode) {
         final Message message = findByCode(messageCode);
         if (!message.isRead()) {
             message.setRead(true);
@@ -57,8 +55,8 @@ public class MessageServiceImpl  extends AbstractGenericServiceImpl<Message> imp
     }
 
     @Override
-    public int getUserUnreadMessageCount(String userCode) {
-        return messageDao.getUnreadMessageCount(userCode);
+    public int getMessageCountByUserAndStatus(User user, MessageStatus status) {
+        return messageDao.getMessageCountByUserAndStatus(user, status);
     }
 
     /**
@@ -72,7 +70,7 @@ public class MessageServiceImpl  extends AbstractGenericServiceImpl<Message> imp
                 final List<MessageDto> outputResults = new ArrayList<>();
                 for (Message msg : searchResults) {
                     final MessageDto messageDto = new MessageDto();
-                    messageDto.setUserName(userService.findByCode(msg.getSenderUserCode()).getSurnameName());
+                    messageDto.setUserName(msg.getSender().getSurnameName());
                     messageDto.setSubject(msg.getSubject());
                     messageDto.setDescription(msg.getDescription());
                     messageDto.setSendingDate(msg.getSendingDate());
