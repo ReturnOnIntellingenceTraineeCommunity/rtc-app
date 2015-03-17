@@ -30,7 +30,8 @@
                  <span style="font-style: italic;font-size: smaller;">(${order.courseStartDate?string('dd-MMM-yyyy')!" "}&nbsp;-&nbsp;${order.courseEndDate?string('dd-MMM-yyyy')!" "})</span>
             </td>
             <td style="vertical-align: middle">
-                <@formMacro.capacityIndicator order.courseAcceptedOrders order.courseCapacity />${order.courseAcceptedOrders} / ${order.courseCapacity}
+                <@formMacro.capacityIndicator order.courseAcceptedOrders order.courseCapacity />
+            <#--${order.courseAcceptedOrders} / ${order.courseCapacity}-->
             </td>
             <td style="vertical-align: middle">
                 <#if order.status == 'PENDING' >
