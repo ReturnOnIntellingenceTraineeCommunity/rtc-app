@@ -26,7 +26,7 @@
         <div class="col-md-3" >
             <div class="btn-group col-md-3" >
                 <button type="button" class="btn-sharp btn btn-default dropdown-toggle "
-                        data-toggle="dropdown" aria-expanded="false" style="width: 180px; margin-left: -35px;">
+                        data-toggle="dropdown" aria-expanded="false" style="width: 180px; margin-left: -25px;">
                     <span id="currentType"><@spring.message "courses.types.AllCat"/></span><span class="caret"></span>
                 </button>
                 <ul  class="dropdown-menu" role="menu">
