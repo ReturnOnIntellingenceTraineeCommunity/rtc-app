@@ -1,13 +1,15 @@
 package net.github.rtc.app.service.builder;
 
-import net.github.rtc.app.dao.DaoTestContext;
 import net.github.rtc.app.model.dto.user.UserCourseDto;
 import net.github.rtc.app.model.entity.course.Course;
+import net.github.rtc.app.model.entity.course.CourseType;
 import net.github.rtc.app.model.entity.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,8 +18,6 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class UserCourseDtoBuilderTest {
-
-    private DaoTestContext daoTestContext = new DaoTestContext();
 
     @Test
     public void testBuildCourseFieldsConstructor() throws Exception {
@@ -87,7 +87,19 @@ public class UserCourseDtoBuilderTest {
     }
 
     private Course getNewCourse() {
-        return (Course) daoTestContext.getModelBuilder(Course.class).build();
+
+        final Course course = new Course();
+        course.setName("Test Course");
+        course.setCapacity(1);
+        course.setTypes(new HashSet<>(Arrays.asList(CourseType.BA, CourseType.QA)));
+        course.setEndDate(getCurrentDate());
+        course.setStartDate(getCurrentDate());
+        course.setCode("CODE");
+        return course;
+    }
+
+    private Date getCurrentDate() {
+        return new Date(0);
     }
 
     private void assertCourseDto(UserCourseDto courseDto, Course course) {
