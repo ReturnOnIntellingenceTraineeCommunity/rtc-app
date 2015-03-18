@@ -4,20 +4,19 @@
 
 <div id="courseTable" class="row-fluid">
 <#list courses as course>
-    <div class="span9">
 
-        <div class="panel panel-default" style=" background-color: #deecf6 ; border: 3px solid #81BEF7;">
+        <div class="row" style=" background-color: #F5F5F5; margin-bottom: 30px;  height: 203px; padding-left: 0;">
 
-            <div class="panel-body"
-                 style="text-align:left; padding-left: 25px; padding-right: 25px; padding-bottom: 0px;
+            <div class="col-md-12"
+                 style="padding-left: 0; text-align: left;
                      <#if course.status == "ARCHIVED">background-color: #f3eaea;</#if>">
 
-                <div class="col-md-3" style="padding-right: 10px">
-                    <@formMacro.courseImage course.types "width: 100%; max-width: 242px; display: block; margin-left: auto; margin-right: auto " />
+                <div class="col-md-3" style="padding-left: 0;">
+                    <@formMacro.courseImage course.types "width: 100%; max-width: 242px; display: block; margin-left: auto; margin-right: auto;" />
                 </div>
 
 
-                <div class="col-md-9" style="">
+                <div class="col-md-9" style="margin-top: 8px">
                     <div class="row">
 
                         <a style="font-size: large;"
@@ -52,7 +51,7 @@
                     <div class="row" style="padding-top: 20px">
                         <div class="col-md-12" style="padding-left: 0;">
                             <#if course.status != "ARCHIVED">
-                                <a class="btn btn-success" type="button" style="float: left"
+                                <a class="btn btn-success btn-sharp btn-to-course" type="button" style="float: left"
                                    href="<@spring.url'/user/courses/courseDetails/${course.code}'/>">Go to course</a>
                             </#if>
 
@@ -66,14 +65,15 @@
 
             </div>
         </div>
-    </div>
+
 </#list>
 </div>
+
 
 <div class="row" style="text-align: center">
     <#if lastPage gt 1>
         <#if currentPage != lastPage>
-            <a href="#" type="button" class="btn btn-info" id="loadMore" page="${currentPage+1}">load more</a>
+            <a href="#" type="button" class="btn btn-info btn-load-more btn-sharp" id="loadMore" page="${currentPage+1}"><@spring.message "course.loadMore" /></a>
         </#if>
     </#if>
 </div> <#-- load more button-->

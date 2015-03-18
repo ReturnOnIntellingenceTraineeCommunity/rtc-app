@@ -5,18 +5,18 @@
 <input type="hidden" id="withArchive" value="true">
 <input type="hidden" id="varTimePeriod" value="">
 <input type="hidden" id="currentCourseType" value="">
-<nav class="navbar navbar-inverse"
+<nav class="navbar navbar-inverse navabar-course-filter"
      style="float: none; padding-bottom: 10px; padding-top: 10px; margin-bottom: 50px;">
 
     <div class="row">
         <div class="col-md-6" >
-            <div class="btn-group period-group" data-toggle="buttons" style="margin-left: 10px">
-                <label onclick="setPeriod('')" class="btn btn-default active">
-                    <input type="radio" id="asd" name="options" value=""> <@spring.message "courses.period.ALL"/>
+            <div class="btn-group  period-group" data-toggle="buttons" style="margin-left: 10px">
+                <label onclick="setPeriod('')" class="btn btn-sharp btn-default active">
+                    <input class="btn-sharp" type="radio" id="asd" name="options" value=""> <@spring.message "courses.period.ALL"/>
                 </label>
                 <#list periods as period>
-                    <label onclick="setPeriod('${period}')" class="btn btn-default">
-                        <input type="radio" name="options"
+                    <label onclick="setPeriod('${period}')" class="btn btn-sharp btn-default">
+                        <input  type="radio" name="options"
                                value="${period}"><@spring.message "courses.period.${period}"/></input>
                     </label>
                 </#list>
@@ -24,9 +24,9 @@
         </div>
 
         <div class="col-md-3" >
-            <div class="btn-group col-md-3">
-                <button type="button" class="btn btn-default dropdown-toggle "
-                        data-toggle="dropdown" aria-expanded="false" style="width: 180px">
+            <div class="btn-group col-md-3" >
+                <button type="button" class="btn-sharp btn btn-default dropdown-toggle "
+                        data-toggle="dropdown" aria-expanded="false" style="width: 180px; margin-left: -35px;">
                     <span id="currentType"><@spring.message "courses.types.AllCat"/></span><span class="caret"></span>
                 </button>
                 <ul  class="dropdown-menu" role="menu">
@@ -39,10 +39,10 @@
         </div>
 
         <div class="col-md-3">
-            <div class="input-group col-md-7" style="margin-right: 5px;">
-                <input id="courseKeyword" type="text" class="form-control" placeholder="<@spring.message "courses.placeholder.search"/>">
+            <div class="input-group col-md-7" style="width: 180px; margin-left: 20px">
+                <input id="courseKeyword" type="text" class="btn-sharp form-control" placeholder="<@spring.message "courses.placeholder.search"/>">
               <span class="input-group-btn">
-                <button onclick="searchKey()" class="btn btn-default" type="button" style="width: 30px">&nbsp;<span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+                <button onclick="searchKey()" class="btn btn-sharp btn-default" type="button" style="width: 40px">&nbsp;<span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
               </span>
             </div>
         </div>
