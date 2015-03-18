@@ -86,16 +86,16 @@ public abstract class AbstractGenericDaoImpl<T extends AbstractPersistenceObject
     public SearchResults<T> search(final DetachedCriteria dCriteria, final int start, final int max, Order order) {
         final Criteria criteria = dCriteria.getExecutableCriteria(getCurrentSession());
         final SearchResults<T> results = new SearchResults<>();
-
         results.getPageModel().setPage(start);
         results.getPageModel().setPerPage(max);
-        results.getPageModel().setTotalResults(((Long) criteria.setProjection(Projections.rowCount()).uniqueResult()).intValue());
+        results.getPageModel().setTotalResults(((Long) criteria.setProjection(Projections.countDistinct("id")).uniqueResult()).intValue());
 
         criteria.setProjection(null);
-        criteria.setResultTransformer(Criteria.ROOT_ENTITY);
+        criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         criteria.setFirstResult((start - 1) * max);
         criteria.setMaxResults(max);
         criteria.addOrder(order);
+
 
         results.setResults(criteria.list());
         return results;

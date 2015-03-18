@@ -2,6 +2,7 @@ package net.github.rtc.app.model.dto.user;
 
 import net.github.rtc.app.model.entity.course.CourseStatus;
 import net.github.rtc.app.model.entity.course.CourseType;
+import net.github.rtc.app.model.entity.course.Tag;
 import net.github.rtc.app.model.entity.user.User;
 
 import java.util.Date;
@@ -20,6 +21,7 @@ public class UserCourseDto {
     private String description;
     private Set<User> experts;
     private boolean currentUserAssigned;
+    private Set<Tag> tags;
 
     public String getCode() {
         return code;
@@ -115,5 +117,13 @@ public class UserCourseDto {
 
     public void setCurrentUserAssigned(boolean currentUserAssigned) {
         this.currentUserAssigned = currentUserAssigned;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 }

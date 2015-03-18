@@ -103,7 +103,7 @@ public class UserSearchFilter extends AbstractSearchFilter {
 
         if (authorities != null && authorities.size() > 0) {
                 criteria.createAlias(AUTHORITIES, AUTHORITIES);
-                final Disjunction authoritiesDis = Restrictions.disjunction(); //change back to disjunction
+                final Disjunction authoritiesDis = Restrictions.disjunction();
                 for (final Role role : authorities) {
                         authoritiesDis.add(Restrictions.eq("authorities.name", role.getName()));
                 }

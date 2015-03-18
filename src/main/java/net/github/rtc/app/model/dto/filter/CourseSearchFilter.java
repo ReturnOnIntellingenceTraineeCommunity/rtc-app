@@ -22,6 +22,8 @@ public class CourseSearchFilter extends AbstractSearchFilter {
     private static final String END_DATE = "endDate";
     private static final String EXPERTS = "experts";
     private static final String STATUS = "status";
+    private static final String TAGS_VALUE = "tags.value";
+    private static final String NAME = "name";
     private String name;
     private char dateMoreLessEq;
     private Set<CourseType> types;
@@ -31,6 +33,7 @@ public class CourseSearchFilter extends AbstractSearchFilter {
     private String expertCode;
     private boolean withArchived = false;
     private TimePeriod timePeriod;
+    private String keyword;
 
     @Autowired
     private DateService dateService;
@@ -112,6 +115,14 @@ public class CourseSearchFilter extends AbstractSearchFilter {
         this.timePeriod = timePeriod;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
     @Override
     public Order order() {
         return Order.desc("id");
@@ -121,7 +132,7 @@ public class CourseSearchFilter extends AbstractSearchFilter {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Course.class);
 
         if (name != null && !("").equals(name)) {
-            criteria.add(Restrictions.like("name", PERCENT + name + PERCENT));
+            criteria.add(Restrictions.like(NAME, PERCENT + name + PERCENT));
         }
         if (status != null && status.size() > 0) {
             criteria.add(Restrictions.in(STATUS, status));
@@ -137,7 +148,7 @@ public class CourseSearchFilter extends AbstractSearchFilter {
             criteria.createAlias(TAGS, TAGS);
             final Disjunction tagDis = Restrictions.disjunction();
             for (final Tag tag : tags) {
-                tagDis.add(Restrictions.eq("tags.value", tag.getValue()));
+                tagDis.add(Restrictions.eq(TAGS_VALUE, tag.getValue()));
             }
             criteria.add(tagDis);
         }
@@ -155,6 +166,17 @@ public class CourseSearchFilter extends AbstractSearchFilter {
             final Conjunction experts = Restrictions.conjunction();
             experts.add(Restrictions.eq("experts.code", expertCode));
             criteria.add(experts);
+        }
+        if (keyword != null && !("").equals(keyword)) {
+            criteria.createAlias(EXPERTS, EXPERTS);
+            criteria.createAlias(TAGS, TAGS);
+            final Disjunction keywordDisjunction = Restrictions.disjunction();
+            keywordDisjunction.add(Restrictions.like(NAME, PERCENT + keyword + PERCENT));
+            keywordDisjunction.add(Restrictions.like("description", PERCENT + keyword + PERCENT));
+            keywordDisjunction.add(Restrictions.like("experts.name", PERCENT + keyword + PERCENT));
+            keywordDisjunction.add(Restrictions.like("experts.surname", PERCENT + keyword + PERCENT));
+            keywordDisjunction.add(Restrictions.like(TAGS_VALUE, PERCENT + keyword + PERCENT));
+            criteria.add(keywordDisjunction);
         }
         if (withArchived) {
             criteria.addOrder(Order.desc(STATUS));

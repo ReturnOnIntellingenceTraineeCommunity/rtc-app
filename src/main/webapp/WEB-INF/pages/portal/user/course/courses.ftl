@@ -126,7 +126,7 @@
         var keyword = $("#courseKeyword").val();
         $.ajax({
             type: "POST",
-            data: "types=" + type + "&page=" + page + "&withArchived=" + withArchive + "&timePeriod=" + timePeriod + "&name=" + keyword,
+            data: "types=" + type + "&page=" + page + "&withArchived=" + withArchive + "&timePeriod=" + timePeriod + "&keyword=" + keyword,
             url: "<@spring.url "/user/courses/courseTable"/>",
             success: function (result) {
                 collbackSucces(result);

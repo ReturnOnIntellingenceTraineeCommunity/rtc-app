@@ -17,7 +17,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -78,16 +77,18 @@ public class Course extends AbstractPersistenceObject implements Serializable, A
     @Column
     @ForExport("Description")
     private String description;
-    @ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "courses_tags",
       joinColumns = { @JoinColumn(name = "tagId") },
       inverseJoinColumns = { @JoinColumn(name = "id") })
     @ForExport("Tags")
-    private List<Tag> tags;
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 1)
+    private Set<Tag> tags;
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
-    @Fetch(value = FetchMode.SUBSELECT)
+    @Fetch(value = FetchMode.SELECT)
+    @BatchSize(size = 1)
     @JoinTable(name = "courses_experts",
       joinColumns = { @JoinColumn(name = "expertId") },
       inverseJoinColumns = { @JoinColumn(name = "courseId") })
@@ -98,11 +99,11 @@ public class Course extends AbstractPersistenceObject implements Serializable, A
 
     }
 
-    public List<Tag> getTags() {
+    public Set<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(final List<Tag> tags) {
+    public void setTags(final Set<Tag> tags) {
         this.tags = tags;
     }
 

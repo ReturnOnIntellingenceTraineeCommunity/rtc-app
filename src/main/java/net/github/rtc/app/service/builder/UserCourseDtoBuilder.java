@@ -34,6 +34,7 @@ public class UserCourseDtoBuilder {
         courseDto.setStartDate(course.getStartDate());
         courseDto.setStatus(course.getStatus());
         courseDto.setTypes(course.getTypes());
+        courseDto.setTags(course.getTags());
         return this;
     }
 
