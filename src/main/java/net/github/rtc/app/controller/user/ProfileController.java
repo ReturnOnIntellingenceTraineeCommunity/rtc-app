@@ -28,6 +28,7 @@ public class ProfileController implements MenuItem {
 
     private static final String USER_ROOT = "portal/user";
     private static final String EXPERT_ROOT = "portal/expert";
+    private static final String ADMIN_ROOT = "portal/admin";
     private static final String USER = "user";
     private static final String REDIRECT = "redirect:/";
     private static final String VALIDATION_RULES = "validationRules";
@@ -70,16 +71,21 @@ public class ProfileController implements MenuItem {
     @RequestMapping(value = "/update", headers = "content-type=multipart/*", method = RequestMethod.POST)
     public ModelAndView update(@ModelAttribute(USER) final User user,
                                @RequestParam(value = "uploadPhoto", required = false) MultipartFile img) {
-        user.setAuthorities(Arrays.asList(userService.findRoleByType(RoleType.ROLE_USER)));
+        user.setAuthorities((List<Role>) AuthorizedUserProvider.getAuthorizedUser().getAuthorities());
         userService.update(user, img, IS_ACTIVE);
-        final Authentication request = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        final Authentication request =  new UsernamePasswordAuthenticationToken(user, user.getPassword());
         authenticationManager.authenticate(request);
         SecurityContextHolder.getContext().setAuthentication(request);
         return new ModelAndView(REDIRECT + "user/profile");
     }
 
     private String getRoot() {
-        if (AuthorizedUserProvider.getAuthorizedUser().hasRole(RoleType.ROLE_EXPERT.name())) {
+        final User authorizedUser = AuthorizedUserProvider.getAuthorizedUser();
+
+        if (authorizedUser.hasRole(RoleType.ROLE_ADMIN.name())) {
+            return ADMIN_ROOT;
+        }
+        if (authorizedUser.hasRole(RoleType.ROLE_EXPERT.name())) {
             return EXPERT_ROOT;
         }
         return USER_ROOT;

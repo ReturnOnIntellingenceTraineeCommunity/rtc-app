@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-@ControllerAdvice(basePackages = { "net.github.rtc.app.controller.expert", "net.github.rtc.app.controller.user" })
+@ControllerAdvice(basePackages = { "net.github.rtc.app.controller.expert", "net.github.rtc.app.controller.user", "net.github.rtc.app.controller.admin" })
 public class ProfileHeaderInitializer {
     @Autowired
     private MessageService messageService;
