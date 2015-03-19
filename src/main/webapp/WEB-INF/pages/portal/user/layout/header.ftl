@@ -9,7 +9,7 @@
                 <a style="padding-right: 0px" href='<@spring.url"/user/profile/"/>'><@formMacro.userImage "${(profileHeader.imageId)!}" "" "profileImg" /></a>
             </li>
             <li style="margin-right: 50px;height: 45px">
-                <a href='<@spring.url"/user/profile/"/>'>${(profileHeader.name)!}
+                <a href='<@spring.url"/user/profile/"/>' class="lato-bold-20">${(profileHeader.name)!}
                 <#if profileHeader.unreadMessageCount!=0>
                     <span id="headerMessageIndicator" class="badge">${(profileHeader.unreadMessageCount)!}</span></#if></a>
             </li>

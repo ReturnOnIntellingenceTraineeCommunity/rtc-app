@@ -19,8 +19,8 @@
                 <div class="" style="margin-top: 8px; margin-left: 30px; flex: 1 1 0%;">
                     <div class="row">
 
-                        <a style="font-size: large;"
-                           href="<@spring.url'/user/courses/courseDetails/${course.code}'/>">${course.name} </a>
+                        <a href="<@spring.url'/user/courses/courseDetails/${course.code}'/>"
+                           class="oxygen-bold-26">${course.name} </a>
                         <br/> <!--  name course-->
 
                     </div>
@@ -29,7 +29,7 @@
 
                         <div class="" style="padding-left: 0; display: block;   flex: 1 1 0%;">
                             <div class="" style="padding-top: 10px">
-                                <span style="font-style: italic;">with ${course.experts?first.name}
+                                <span class="lato-normal-18">with ${course.experts?first.name}
                                     &nbsp;${course.experts?first.surname}</span>
                             </div>
                             <!-- expert name -->
@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="" style="display:block; text-align: right; float: right">
-                            <span style="">${course.startDate?date?string('dd MMMM yyyy')}</span> <!-- startDate -->
+                            <span class="lato-normal-18">${course.startDate?date?string('dd MMMM yyyy')}</span> <!-- startDate -->
                             <br/>
                             <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
                         </div>
@@ -51,7 +51,7 @@
                     <div class="row" style="padding-top: 20px">
                         <div class="" style="padding-left: 0;  padding-right: 15px;">
                             <#if course.status != "ARCHIVED">
-                                <a class="btn btn-success btn-sharp btn-to-course" type="button" style="float: left"
+                                <a class="btn btn-success btn-sharp btn-to-course" type="button" style="padding-top: 10px; float: left; width: 155px; height: 45px; text-align: center"
                                    href="<@spring.url'/user/courses/courseDetails/${course.code}'/>">Go to course</a>
                             </#if>
 

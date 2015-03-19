@@ -7,6 +7,9 @@
 
     <@formMacro.rtcIncludeLink />
     <@formMacro.rtcIncludeScript/>
+    <link href='http://fonts.googleapis.com/css?family=Oxygen:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>

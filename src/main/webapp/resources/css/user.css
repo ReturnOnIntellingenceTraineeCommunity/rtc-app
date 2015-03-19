@@ -123,4 +123,21 @@
     }
 }
 
+.lato-normal-18 {
+    font-size: 18px;
+    font-family: 'Lato', sans-serif;
+}
+
+.lato-bold-20 {
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700
+}
+
+.oxygen-bold-26 {
+    font-size: 26px;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 700
+}
+
 

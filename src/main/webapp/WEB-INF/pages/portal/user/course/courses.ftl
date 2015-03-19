@@ -1,6 +1,7 @@
 <#import "../layout/layout.ftl" as layout/>
 <#import "../../../fieldMacro.ftl" as formMacro />
 
+
 <@layout.layout>
 <input type="hidden" id="withArchive" value="true">
 <input type="hidden" id="varTimePeriod" value="">
