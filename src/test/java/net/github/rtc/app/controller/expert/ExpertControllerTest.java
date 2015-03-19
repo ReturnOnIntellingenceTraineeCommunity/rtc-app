@@ -72,7 +72,7 @@ public class ExpertControllerTest {
     @Test
     public void testExpertCourses() throws Exception {
         //when(userCourseOrderService.getOrderByExpertCode(user.getCode())).thenReturn(new ArrayList<ExpertOrderDto>());
-        mockMvc.perform(get("/user/expert/order"))
+        mockMvc.perform(get("/expert/order"))
                 .andExpect(status().isOk());
     }
 
@@ -80,14 +80,14 @@ public class ExpertControllerTest {
     @Test
     public void testAcceptRequest() throws Exception {
         when(userCourseOrderService.findByCode(ORDER_CODE)).thenReturn(new UserCourseOrder());
-        mockMvc.perform(get("/user/expert/order/accept/{orderId}", ORDER_CODE))
+        mockMvc.perform(get("/expert/order/accept/{orderId}", ORDER_CODE))
                 .andExpect(status().isFound());
     }
 
     @Test
     public void testDeclineRequest() throws Exception {
         when(userCourseOrderService.findByCode(ORDER_CODE)).thenReturn(new UserCourseOrder());
-        mockMvc.perform(get("/user/expert/order/decline/{orderId}", ORDER_CODE).param("reason","reason"))
+        mockMvc.perform(get("/expert/order/decline/{orderId}", ORDER_CODE).param("reason","reason"))
                 .andExpect(status().isFound());
     }
 
