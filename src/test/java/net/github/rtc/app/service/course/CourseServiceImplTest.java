@@ -54,15 +54,18 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
     @InjectMocks
     private CourseServiceImpl courseService;
 
+    private Course testEntity;
 
+    @Override
     @Before
-    public void mockDateService() {
-        when(dateService.getCurrentDate()).thenReturn(new Date());
+    public void setUp(){
+        super.setUp();
+        testEntity = (Course) getTestEntity();
+        mockMethods();
     }
 
-    @Test
-    public void testCreate() {
-        Course testEntity = (Course) getTestEntity();
+    private void mockMethods() {
+        when(dateService.getCurrentDate()).thenReturn(new Date());
 
         doAnswer(new Answer() {
             @Override
@@ -73,61 +76,87 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
 
         when(newsService.create(any(Course.class))).thenReturn(new News());
 
-        assertEquals(testEntity, courseService.create(testEntity));
-
-        courseService.create(testEntity,true,false);
-        assertCourseIsPublish(testEntity,true);
-
-        testEntity = (Course) getTestEntity();
-        courseService.create(testEntity,false,false);
-        assertCourseIsPublish(testEntity,false);
-
-        verify(newsService, times(0)).create(any(Course.class));
-
-        testEntity = (Course) getTestEntity();
-        courseService.create(testEntity,true,true);
-        assertCourseIsPublish(testEntity,true);
-
-        testEntity = (Course) getTestEntity();
-        courseService.create(testEntity,false,true);
-        assertCourseIsPublish(testEntity,false);
-
-        verify(newsService, times(2)).create(any(Course.class));
-    }
-
-    @Test
-    public void testUpdate(){
-        Course testEntity = (Course) getTestEntity();
-
         doAnswer(new Answer() {
             @Override
             public Object answer(final InvocationOnMock invocation) throws Throwable {
                 return invocation.getArguments()[0];
             }
         }).when(courseDao).update(any(Course.class));
+    }
 
-        when(newsService.create(any(Course.class))).thenReturn(new News());
-
-        assertEquals(testEntity, courseService.update(testEntity));
-
-        courseService.update(testEntity, true, false);
-        assertCourseIsPublish(testEntity,true);
-
-        testEntity = (Course) getTestEntity();
-        courseService.update(testEntity, false, false);
-        assertCourseIsPublish(testEntity,false);
+    @Test
+    public void testSimpleCreate() {
+        assertEquals(testEntity, courseService.create(testEntity));
 
         verify(newsService, times(0)).create(any(Course.class));
+    }
 
-        testEntity = (Course) getTestEntity();
-        courseService.update(testEntity, true, true);
+    @Test
+    public void testCreateAndPublish() {
+        courseService.create(testEntity,true,false);
+
         assertCourseIsPublish(testEntity,true);
+        verify(newsService, times(0)).create(any(Course.class));
+    }
+    @Test
+    public void testOnlyCreate() {
+        courseService.create(testEntity,false,false);
 
-        testEntity = (Course) getTestEntity();
-        courseService.update(testEntity, false, true);
         assertCourseIsPublish(testEntity,false);
+        verify(newsService, times(0)).create(testEntity);
+    }
 
-        verify(newsService, times(2)).create(any(Course.class));
+    @Test
+    public void testCreatePublishAndNewsCreated() {
+        courseService.create(testEntity,true,true);
+
+        assertCourseIsPublish(testEntity,true);
+        verify(newsService).create(testEntity);
+    }
+
+    @Test
+    public void testCreateAndNewsCreated() {
+        courseService.create(testEntity,false,true);
+
+        assertCourseIsPublish(testEntity,false);
+        verify(newsService).create(testEntity);
+    }
+
+    @Test
+    public void testSimpleUpdate(){
+        assertEquals(testEntity, courseService.update(testEntity));
+
+        verify(newsService, times(0)).create(any(Course.class));
+    }
+
+    @Test
+    public void testUpdateAndPublish(){
+        courseService.update(testEntity, true, false);
+
+        assertCourseIsPublish(testEntity,true);
+        verify(newsService, times(0)).create(any(Course.class));
+    }
+    @Test
+    public void testOnlyUpdate(){
+        courseService.update(testEntity, false, false);
+
+        assertCourseIsPublish(testEntity,false);
+        verify(newsService, times(0)).create(any(Course.class));
+    }
+
+    @Test
+    public void testUpdatePublishAndNewsCreated(){
+        courseService.update(testEntity, true, true);
+
+        assertCourseIsPublish(testEntity, true);
+        verify(newsService).create(any(Course.class));
+    }
+    @Test
+    public void testUpdateAndNewsCreated(){
+        courseService.update(testEntity, false, true);
+
+        assertCourseIsPublish(testEntity,false);
+        verify(newsService).create(any(Course.class));
     }
 
     private void assertCourseIsPublish(Course testEntity, boolean isPublish) {
@@ -151,41 +180,31 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
 
     @Test
     public void testPublish() throws Exception {
-        final Course testEntity = (Course) getTestEntity();
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(final InvocationOnMock invocation) throws Throwable {
-                return invocation.getArguments()[0];
-            }
-        }).when(courseDao).update(any(Course.class));
-
         when(courseDao.findByCode(CODE)).thenReturn(testEntity);
 
-
         courseService.publish(CODE,false);
+
         assertCourseIsPublish(testEntity, true);
         verify(newsService, times(0)).create(any(Course.class));
+    }
+
+    @Test
+    public void testPublishAndNewsCreated() throws Exception {
+        when(courseDao.findByCode(CODE)).thenReturn(testEntity);
 
         testEntity.setStatus(CourseStatus.DRAFT);
         courseService.publish(CODE, true);
+
         assertCourseIsPublish(testEntity, true);
         verify(newsService, times(1)).create(any(Course.class));
     }
 
     @Test
     public void testArchive() throws Exception {
-        final Course testEntity = (Course) getTestEntity();
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(final InvocationOnMock invocation) throws Throwable {
-                return invocation.getArguments()[0];
-            }
-        }).when(courseDao).update(any(Course.class));
-
         when(courseDao.findByCode(CODE)).thenReturn(testEntity);
 
-
         courseService.archive(CODE);
+
         assertEquals(testEntity.getStatus(), CourseStatus.ARCHIVED);
         verify(newsService, times(0)).create(any(Course.class));
     }
@@ -193,10 +212,11 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
     @Test
     public void testGetUserCourseDtoByCode() throws Exception {
         final int orderCount = 10;
-        final Course testEntity = (Course) getTestEntity();
         Set<User> experts = new HashSet<>();
+
         experts.add(new User());
         testEntity.setExperts(experts);
+
         when(orderService.getAcceptedOrdersCount(CODE)).thenReturn(orderCount);
         when(orderService.findByUserCodeAndCourseCode(anyString(), eq(CODE) )).thenReturn(null);
         when(courseDao.findByCode(CODE)).thenReturn(testEntity);
@@ -209,17 +229,17 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
 
     @Test
     public void testSearchUserCourses() throws Exception {
-        final Course testEntity = (Course) getTestEntity();
+        final int orderCount = 10;
 
         final SearchResults<Course> courseList = new SearchResults<>();
         courseList.setResults(Arrays.asList(testEntity));
-        when(courseDao.search(any(AbstractSearchFilter.class))).thenReturn(courseList);
 
-        final int orderCount = 10;
         Set<User> experts = new HashSet<>();
+
         experts.add(new User());
         testEntity.setExperts(experts);
 
+        when(courseDao.search(any(AbstractSearchFilter.class))).thenReturn(courseList);
         when(orderService.getAcceptedOrdersCount(CODE)).thenReturn(orderCount);
         when(orderService.findByUserCodeAndCourseCode(anyString(), eq(CODE) )).thenReturn(null);
         when(courseDao.findByCode(CODE)).thenReturn(testEntity);
@@ -246,6 +266,7 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
         assertArrayEquals(expected.getExperts().toArray(), actual.getExperts().toArray());
         assertEquals(expected.getCurrentUserAssigned(),actual.getCurrentUserAssigned());
     }
+
     private void assertCourseDto(UserCourseDto courseDto, Course testEntity, int orderCount, boolean isUserAssigned) {
         assertEquals(courseDto.getCode(),testEntity.getCode());
         assertEquals(courseDto.getCapacity(),testEntity.getCapacity());
@@ -259,7 +280,6 @@ public class CourseServiceImplTest extends AbstractCrudEventsServiceTest {
         assertArrayEquals(courseDto.getExperts().toArray(), testEntity.getExperts().toArray());
         assertEquals(courseDto.getCurrentUserAssigned(),isUserAssigned);
     }
-
 
     private void  assertSearchResults(SearchResults<UserCourseDto> sr1, SearchResults<UserCourseDto> sr2) {
         assertEquals(sr1.getResults().size(), sr2.getResults().size());
