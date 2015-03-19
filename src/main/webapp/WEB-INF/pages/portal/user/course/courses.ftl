@@ -6,7 +6,7 @@
 <input type="hidden" id="withArchive" value="true">
 <input type="hidden" id="varTimePeriod" value="">
 <input type="hidden" id="currentCourseType" value="">
-<nav class="navbar navbar-inverse navabar-course-filter"
+<nav class="navbar navbar-inverse navabar-course-filter btn-sharp"
      style="float: none; padding-top: 10px; margin-bottom: 50px;">
 
     <div class="row">
