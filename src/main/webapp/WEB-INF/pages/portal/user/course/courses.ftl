@@ -6,11 +6,11 @@
 <input type="hidden" id="varTimePeriod" value="">
 <input type="hidden" id="currentCourseType" value="">
 <nav class="navbar navbar-inverse navabar-course-filter"
-     style="float: none; padding-bottom: 10px; padding-top: 10px; margin-bottom: 50px;">
+     style="float: none; padding-top: 10px; margin-bottom: 50px;">
 
     <div class="row">
-        <div class="col-md-6" >
-            <div class="btn-group  period-group" data-toggle="buttons" style="margin-left: 10px">
+        <div class="col-md-6" style="">
+            <div class="btn-group  period-group" data-toggle="buttons" style="margin-left: 10px; margin-bottom: 10px;">
                 <label onclick="setPeriod('')" class="btn btn-sharp btn-default active">
                     <input class="btn-sharp" type="radio" id="asd" name="options" value=""> <@spring.message "courses.period.ALL"/>
                 </label>
@@ -23,10 +23,10 @@
             </div>
         </div>
 
-        <div class="col-md-3" >
-            <div class="btn-group col-md-3" >
+        <div class="col-md-3" style="">
+            <div class="btn-group" style="margin-left: 10px; margin-bottom: 10px;" >
                 <button type="button" class="btn-sharp btn btn-default dropdown-toggle "
-                        data-toggle="dropdown" aria-expanded="false" style="width: 180px; margin-left: -25px;">
+                        data-toggle="dropdown" aria-expanded="false" style="width: 180px;">
                     <span id="currentType"><@spring.message "courses.types.AllCat"/></span><span class="caret"></span>
                 </button>
                 <ul  class="dropdown-menu" role="menu">
@@ -38,8 +38,8 @@
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="input-group col-md-7" style="width: 180px; margin-left: 20px">
+        <div class="col-md-3" style="">
+            <div class="input-group" style="max-width: 180px; margin-left: 10px; margin-bottom: 10px;">
                 <input id="courseKeyword" type="text" class="btn-sharp form-control" placeholder="<@spring.message "courses.placeholder.search"/>">
               <span class="input-group-btn">
                 <button onclick="searchKey()" class="btn btn-sharp btn-default" type="button" style="width: 40px">&nbsp;<span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
@@ -95,12 +95,6 @@
     });
 
 
-    //    $(function () {
-    //        $.each($('.description'), function () {
-    //            var str = $(this).html();
-    //            $(this).html(shorten(str, 150));
-    //        });
-    //    });
 
 
     function appendContent(result) {
@@ -133,14 +127,6 @@
             }, error: function (xhr, status, error) {
             }
         });
-    }
-
-    function shorten(text, maxLength) {
-        var ret = text;
-        if (ret.length > maxLength) {
-            ret = ret.substr(0, maxLength - 3) + "...";
-        }
-        return ret;
     }
 
 

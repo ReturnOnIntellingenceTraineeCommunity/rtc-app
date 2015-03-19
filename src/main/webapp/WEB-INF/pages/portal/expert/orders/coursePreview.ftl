@@ -58,8 +58,6 @@
         <div class="col-md-6">
             <div class="col-md-3"></div>
             <@formMacro.capacityIndicator course.acceptedOrders  course.capacity/>
-            <#--&nbsp;<span data-toggle="tooltip" data-placement="bottom" title="<@spring.message 'course.appliedCapacity'/>">${course.acceptedOrders}</span>/-->
-            <#--<span data-toggle="tooltip" data-placement="bottom" title="<@spring.message 'course.totalCapacity'/>">${course.capacity}</span><br/>&nbsp;-->
         </div>
     </div>
 </div>

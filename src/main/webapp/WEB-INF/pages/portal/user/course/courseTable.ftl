@@ -2,21 +2,21 @@
 <#import "../../../datatables.ftl" as datatables/>
 
 
-<div id="courseTable" class="row-fluid">
+<div id="courseTable" class="row-fluid course-table">
 <#list courses as course>
 
-        <div class="row" style=" background-color: #F5F5F5; margin-bottom: 30px;  height: 203px; padding-left: 0;">
+        <div class="row course-row" style=" background-color: #F5F5F5; margin-bottom: 30px;   padding-left: 0;">
 
-            <div class="col-md-12"
+            <div class="col-md-12 thumb"
                  style="padding-left: 0; text-align: left;
                      <#if course.status == "ARCHIVED">background-color: #f3eaea;</#if>">
 
-                <div class="col-md-3" style="padding-left: 0;">
-                    <@formMacro.courseImage course.types "width: 100%; max-width: 242px; display: block; margin-left: auto; margin-right: auto;" />
+                <div class="" style="padding-left: 0; height: 203px; display: block;" >
+                    <@formMacro.courseImage course.types "height: 203px; max-width: 242px; display: block; margin-left: auto; margin-right: auto;" />
                 </div>
 
 
-                <div class="col-md-9" style="margin-top: 8px">
+                <div class="" style="margin-top: 8px; margin-left: 30px; flex: 1 1 0%;">
                     <div class="row">
 
                         <a style="font-size: large;"
@@ -25,9 +25,9 @@
 
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="display: flex; padding-right: 15px;">
 
-                        <div class="col-md-9" style="padding-left: 0;">
+                        <div class="" style="padding-left: 0; display: block;   flex: 1 1 0%;">
                             <div class="" style="padding-top: 10px">
                                 <span style="font-style: italic;">with ${course.experts?first.name}
                                     &nbsp;${course.experts?first.surname}</span>
@@ -40,7 +40,7 @@
                             <!-- description -->
                         </div>
 
-                        <div class="col-md-3" style="text-align: right; float: right">
+                        <div class="" style="display:block; text-align: right; float: right">
                             <span style="">${course.startDate?date?string('dd MMMM yyyy')}</span> <!-- startDate -->
                             <br/>
                             <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
@@ -49,7 +49,7 @@
                     </div>
 
                     <div class="row" style="padding-top: 20px">
-                        <div class="col-md-12" style="padding-left: 0;">
+                        <div class="" style="padding-left: 0;  padding-right: 15px;">
                             <#if course.status != "ARCHIVED">
                                 <a class="btn btn-success btn-sharp btn-to-course" type="button" style="float: left"
                                    href="<@spring.url'/user/courses/courseDetails/${course.code}'/>">Go to course</a>
@@ -78,7 +78,22 @@
     </#if>
 </div> <#-- load more button-->
 
+<script>
+    $(function () {
+        $.each($('.description'), function () {
+            var str = $(this).html();
+            $(this).html(shorten(str, 150));
+        });
+    });
 
+    function shorten(text, maxLength) {
+        var ret = text;
+        if (ret.length > maxLength) {
+            ret = ret.substr(0, maxLength - 3) + "...";
+        }
+        return ret;
+    }
+</script>
 <#--CURRENT STATE: allways show archived course after published course-->
 
 <#--<#if currentPage == lastPage>-->
