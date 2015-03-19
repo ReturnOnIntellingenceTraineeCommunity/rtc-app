@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("user/expert/order")
+@RequestMapping("expert/order")
 public class OrderController implements MenuItem {
 
     private static final String ROOT = "portal/expert";

@@ -18,7 +18,7 @@
         <tr style="vertical-align: middle">
             <td style="vertical-align: middle; width: 25%">
                 <@formMacro.userImage "${(order.userPhoto)!}" "" "profileImg" />
-                <a style="text-decoration: underline;" href="<@spring.url "/user/expert/order/user/${order.userCode}"/>">  ${order.userName} </a>
+                <a style="text-decoration: underline;" href="<@spring.url "/expert/order/user/${order.userCode}"/>">  ${order.userName} </a>
             </td>
             <td style="vertical-align: middle">
                 <#if order.orderDate??>
@@ -26,7 +26,7 @@
                 </#if>
             </td>
             <td style="vertical-align: middle">
-                <a style="text-decoration: underline;" href="<@spring.url "/user/expert/order/course/${order.courseCode}"/>">  ${order.courseName} </a><br/>
+                <a style="text-decoration: underline;" href="<@spring.url "/expert/order/course/${order.courseCode}"/>">  ${order.courseName} </a><br/>
                  <span style="font-style: italic;font-size: smaller;">(${order.courseStartDate?string('dd-MMM-yyyy')!" "}&nbsp;-&nbsp;${order.courseEndDate?string('dd-MMM-yyyy')!" "})</span>
             </td>
             <td style="vertical-align: middle">
@@ -49,7 +49,7 @@
                     <@formMacro.splitButton/>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="min-width: 100px;">
                         <#if order.status == 'PENDING' >
-                            <li><a class="btn" onclick="doAjaxCall('<@spring.url'/user/expert/order/accept/${order.orderCode}'/>')">
+                            <li><a class="btn" onclick="doAjaxCall('<@spring.url'/expert/order/accept/${order.orderCode}'/>')">
                                     <@spring.message "order.action.accept"/></a></li>
                             <li><a class="btn" onclick="showRejectPopUp('${order.orderCode}')">
                                     <@spring.message "order.action.reject"/></a></li>
@@ -59,7 +59,7 @@
                                 <@spring.message "order.action.reject"/></a></li>
                         </#if>
                         <#if order.status == 'REJECTED' >
-                            <li><a class="btn" onclick="doAjaxCall('<@spring.url'/user/expert/order/accept/${order.orderCode}'/>')">
+                            <li><a class="btn" onclick="doAjaxCall('<@spring.url'/expert/order/accept/${order.orderCode}'/>')">
                                 <@spring.message "order.action.accept"/></a></li>
                         </#if>
                     </ul>

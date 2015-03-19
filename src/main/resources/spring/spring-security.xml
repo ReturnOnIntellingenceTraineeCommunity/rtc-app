@@ -12,7 +12,7 @@
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/user/profile/**" access="hasAnyRole('ROLE_USER', 'ROLE_EXPERT', 'ROLE_ADMIN')" />
         <intercept-url pattern="/user/message/**" access="hasAnyRole('ROLE_USER', 'ROLE_EXPERT')" />
-        <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER',)" />
+        <intercept-url pattern="/user/**" access="hasAnyRole('ROLE_USER')" />
         <intercept-url pattern="/expert/**" access="hasRole('ROLE_EXPERT')" />
         <form-login login-page="/login" default-target-url="/login_attempt"
                     authentication-failure-url="/loginfailed"

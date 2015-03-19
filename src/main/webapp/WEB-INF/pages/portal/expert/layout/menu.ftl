@@ -1,7 +1,7 @@
 <#--if you change this menu, you have to change MenuItems.class!!!-->
 <ul class="nav nav-sidebar">
     <li id="profileMenuItem" class="navMenuItem"><a href='<@spring.url"/user/profile/"/>'>Profile</a></li>
-    <li id="orderMenuItem" class="navMenuItem"><a href='<@spring.url"/user/expert/order"/>'>Orders</a></li>
+    <li id="orderMenuItem" class="navMenuItem"><a href='<@spring.url"/expert/order"/>'>Orders</a></li>
     <li id="messageMenuItem" class="navMenuItem"><a href='<@spring.url"/user/message"/>'>Messages</a></li>
 </ul>
 

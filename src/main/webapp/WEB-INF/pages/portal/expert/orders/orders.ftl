@@ -51,7 +51,7 @@
     function search(page) {
         $.ajax({
             type: "GET",
-            url: '<@spring.url "/user/expert/order/orderTable"/>',
+            url: '<@spring.url "/expert/order/orderTable"/>',
             data: serializedFilter + "&page=" + page,
             success: function (result) {
                 $("#searchTable").html(result)
@@ -87,7 +87,7 @@
             var reason = $("#reasonForm").serialize();
             $.ajax({
                 type: "GET",
-                url: '<@spring.url "/user/expert/order/decline/"/>' + orderCode,
+                url: '<@spring.url "/expert/order/decline/"/>' + orderCode,
                 data: reason,
                 success: function (result) {
                     var page = $('#searchTable').find('.active').find('.navButton').attr("page");
