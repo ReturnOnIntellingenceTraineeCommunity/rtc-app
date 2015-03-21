@@ -11,7 +11,7 @@
     }
 </style>
 <h4><strong><@spring.message "user.details"/></strong></h4>
-<div style="width: 85%">
+<div style="width: 100%">
     <div class="row">
         <div class="col-md-6">
             <div class="row">

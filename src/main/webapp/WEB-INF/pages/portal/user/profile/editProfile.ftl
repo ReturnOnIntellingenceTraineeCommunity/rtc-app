@@ -9,10 +9,13 @@
     <@spring.formHiddenInput "user.registerDate" />
     <@spring.formHiddenInput "user.status" />
     <@spring.formHiddenInput "user.photo" />
-    <#include "userForm.ftl" />
-    <div class="row" style="margin-right: 88px">
-        <@formMacro.rtcSubmit "Save" "Cancel" "/user/profile/"/>
+    <div class="row" style="width: 120%">
+        <#include "userForm.ftl" />
+        <div class="row" style="margin-right: 88px;">
+            <@formMacro.rtcSubmit "Save" "Cancel" "/user/profile/"/>
+        </div>
     </div>
+
 </@formMacro.rtcForm>
 
 </@layout.layout>

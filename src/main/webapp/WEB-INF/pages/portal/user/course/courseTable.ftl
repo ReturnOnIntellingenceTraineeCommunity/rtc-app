@@ -2,10 +2,10 @@
 <#import "../../../datatables.ftl" as datatables/>
 
 
-<div id="courseTable" class="row-fluid course-table">
+
 <#list courses as course>
 
-        <div class="row course-row" style=" background-color: #F5F5F5; margin-bottom: 30px;   padding-left: 0;">
+        <div class="row" style=" background-color: #F5F5F5; margin-bottom: 30px;margin-left: 2%; width:98%;  padding-left: 0; min-width: 950px">
 
             <div class="col-md-12 thumb"
                  style="padding-left: 0; text-align: left;
@@ -20,7 +20,7 @@
                     <div class="row">
 
                         <a href="<@spring.url'/user/courses/courseDetails/${course.code}'/>"
-                           class="oxygen-bold-26">${course.name} </a>
+                           class="open-sans-200-25">${course.name} </a>
                         <br/> <!--  name course-->
 
                     </div>
@@ -29,7 +29,7 @@
 
                         <div class="" style="padding-left: 0; display: block;   flex: 1 1 0%;">
                             <div class="" style="padding-top: 10px">
-                                <span class="lato-normal-18">with ${course.experts?first.name}
+                                <span class="open-sans-normal-16">with ${course.experts?first.name}
                                     &nbsp;${course.experts?first.surname}</span>
                             </div>
                             <!-- expert name -->
@@ -41,9 +41,13 @@
                         </div>
 
                         <div class="" style="display:block; text-align: right; float: right">
-                            <span class="lato-normal-18">${course.startDate?date?string('dd MMMM yyyy')}</span> <!-- startDate -->
-                            <br/>
-                            <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
+                            <div class="" style="padding-top: 10px">
+                                <span class="open-sans-normal-16">${course.startDate?date?string('dd MMMM yyyy')}</span> <!-- startDate -->
+                            </div>
+
+                            <div class="" style="padding-top: 10px; padding-bottom: 10px">
+                                <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
+                            </div>
                         </div>
 
                     </div>
@@ -67,7 +71,6 @@
         </div>
 
 </#list>
-</div>
 
 
 <div class="row" style="text-align: center">

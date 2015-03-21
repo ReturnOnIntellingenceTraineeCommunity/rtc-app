@@ -7,10 +7,10 @@
 <input type="hidden" id="varTimePeriod" value="">
 <input type="hidden" id="currentCourseType" value="">
 <nav class="navbar navbar-inverse navabar-course-filter btn-sharp"
-     style="float: none; padding-top: 10px; margin-bottom: 50px;">
+     style="float: none; padding-top: 10px; margin-bottom: 50px; min-width: 950px; width:98%;margin-left: 2%;">
 
-    <div class="row">
-        <div class="col-md-6" style="">
+    <div class="row" style="min-width: 950px">
+        <div class="col-md-6" >
             <div class="btn-group  period-group" data-toggle="buttons" style="margin-left: 10px; margin-bottom: 10px;">
                 <label onclick="setPeriod('')" class="btn btn-sharp btn-default active">
                     <input class="btn-sharp" type="radio" id="asd" name="options" value=""> <@spring.message "courses.period.ALL"/>
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div class="col-md-3" style="">
+        <div class="col-md-3">
             <div class="btn-group" style="margin-left: 10px; margin-bottom: 10px;" >
                 <button type="button" class="btn-sharp btn btn-default dropdown-toggle "
                         data-toggle="dropdown" aria-expanded="false" style="width: 180px;">
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-        <div class="col-md-3" style="">
+        <div class="col-md-3">
             <div class="input-group" style="max-width: 180px; margin-left: 10px; margin-bottom: 10px;">
                 <input id="courseKeyword" type="text" class="btn-sharp form-control" placeholder="<@spring.message "courses.placeholder.search"/>">
               <span class="input-group-btn">
