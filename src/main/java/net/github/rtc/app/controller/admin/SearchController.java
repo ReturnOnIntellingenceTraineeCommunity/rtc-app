@@ -26,6 +26,7 @@ import net.github.rtc.app.service.security.AuthorizedUserProvider;
 import net.github.rtc.app.model.dto.filter.*;
 import net.github.rtc.app.utils.enums.EnumHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -175,6 +176,12 @@ public class SearchController {
         lastSearchCommand.setLastFilter(logsFilter);
         lastSearchCommand.setMenuItem(LOGS);
         return mav;
+    }
+
+    @RequestMapping(value = "/search/dropFilter", method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void dropFilter() {
+        lastSearchCommand.dropFilter();
     }
 
     @ModelAttribute(ACTIVITY_FILTER)

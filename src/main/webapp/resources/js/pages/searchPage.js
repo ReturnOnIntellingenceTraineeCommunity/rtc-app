@@ -41,15 +41,24 @@ function SearchPage(settings) {
         doUpdateTable(false, page);
     };
 
-    self.doReset = function () {
+    self.doReset = function (url) {
         /*self.emptyTable();*/
 
-        $(".activeForm input, textarea").val("");
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (result) {
+                $(".activeForm input, textarea").val("");
 
-        $(".activeForm ul#tagsTag li.tagit-choice").remove();
+                $(".activeForm ul#tagsTag li.tagit-choice").remove();
 
-        $(".activeForm select option:selected").removeAttr("selected");
+                $(".activeForm select option:selected").removeAttr("selected");
 
+                searchPage.doSearch();
+
+            }, error: function (xhr, status, error) {
+            }
+        });
     };
 
     self.showFilterForm = function (menuId) {

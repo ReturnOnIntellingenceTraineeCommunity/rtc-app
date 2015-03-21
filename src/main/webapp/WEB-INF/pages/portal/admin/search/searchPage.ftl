@@ -41,8 +41,7 @@
     $(".navMenuItem").on("click", function (event) {
         event.preventDefault();
         searchPage.showFilterForm(this.id);
-        searchPage.doReset();
-        searchPage.doSearch();
+        searchPage.doReset("<@spring.url '/admin/search/dropFilter'/>");
 
     });
 
@@ -51,8 +50,7 @@
         searchPage.doChangePage(${initPage});
     }
     $("#reset").on("click", function () {
-                searchPage.doReset();
-                searchPage.doSearch();
+                searchPage.doReset("<@spring.url '/admin/search/dropFilter'/>");
             }
     );
 
