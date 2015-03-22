@@ -211,8 +211,7 @@ public class SearchController {
 
     @ModelAttribute(LOGS_FILTER)
     public LogsSearchFilter getLogsSearchFilter() {
-//        return (LogsSearchFilter) lastSearchCommand.getSearchFilter(LogsSearchFilter.class);
-            return new LogsSearchFilter();
+        return (LogsSearchFilter) lastSearchCommand.getSearchFilter(LogsSearchFilter.class);
     }
 
     @ModelAttribute(NEWS_STATUSES)
