@@ -35,7 +35,7 @@
                             <!-- expert name -->
 
                             <div class="" style="padding-top: 10px; padding-bottom: 10px">
-                                <span class="description">${course.description}</span>
+                                <span class="description open-sans-normal-16">${course.description}</span>
                             </div>
                             <!-- description -->
                         </div>
@@ -45,7 +45,7 @@
                                 <span class="open-sans-normal-16">${course.startDate?date?string('dd MMMM yyyy')}</span> <!-- startDate -->
                             </div>
 
-                            <div class="" style="padding-top: 10px; padding-bottom: 10px">
+                            <div class="open-sans-normal-16" style="padding-top: 10px; padding-bottom: 10px">
                                 <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
                             </div>
                         </div>
