@@ -10,11 +10,14 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.WebAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -38,6 +41,11 @@ public class SimpleAuthenticationSuccessHandlerTest {
         testHandle("/user/profile/", getExpertAuth());
     }
 
+    @Test
+    public void testEmptyHandle() throws IOException {
+        testHandle("/", getEmptyAuth());
+    }
+
     private void testHandle(String targetUrl, Authentication authentication) throws IOException {
         MockHttpServletRequest request = new MockHttpServletRequest();
         MockHttpServletResponse response = new MockHttpServletResponse();
@@ -48,6 +56,18 @@ public class SimpleAuthenticationSuccessHandlerTest {
         successHandler.onAuthenticationSuccess(request, response, authentication);
         assertNull(request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
         assertEquals(targetUrl, response.getRedirectedUrl());
+    }
+
+    @Test
+    public void testSessionNullHandle() throws IOException {
+        MockHttpServletRequest request = new MockHttpServletRequest();
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        SimpleAuthenticationSuccessHandler successHandler = new SimpleAuthenticationSuccessHandler();
+        request.setRequestURI("/");
+        request.setSession(null);
+        successHandler.onAuthenticationSuccess(request, response, getUserAuth());
+        assertNull(request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
+        assertEquals("/user/profile/", response.getRedirectedUrl());
     }
 
     @Test
@@ -75,5 +95,10 @@ public class SimpleAuthenticationSuccessHandlerTest {
     private Authentication getExpertAuth() {
         Role expertRole = new Role(RoleType.ROLE_EXPERT.name());
         return new UsernamePasswordAuthenticationToken(null, null, Arrays.asList(expertRole));
+    }
+
+    private Authentication getEmptyAuth() {
+        List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
+        return new UsernamePasswordAuthenticationToken(null, null, grantedAuthorityList);
     }
 }
