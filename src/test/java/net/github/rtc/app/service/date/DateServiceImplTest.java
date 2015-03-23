@@ -1,23 +1,32 @@
 package net.github.rtc.app.service.date;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
 
 public class DateServiceImplTest {
 
+    @InjectMocks
     DateService dateService = new DateServiceImpl();
 
     @Test
     public void testGetCurrentDate() throws Exception {
-        final String expected = DateTime.now().toLocalDateTime().toDate().toString();
-        final String actual = dateService.getCurrentDate().toString();
+        final int twoMinutes = 2 * 60 * 1000;
+        final Date expected =DateTime.now().toLocalDateTime().toDate();
+        final Date actual = dateService.getCurrentDate();
+        final long diffTime = actual.getTime() - expected.getTime();
 
-        assertTrue(expected.equals(actual));
+        assertTrue(diffTime<twoMinutes);
     }
 
     @Test
