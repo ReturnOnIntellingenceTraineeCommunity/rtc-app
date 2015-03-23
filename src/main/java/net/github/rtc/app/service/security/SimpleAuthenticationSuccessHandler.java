@@ -29,8 +29,7 @@ public class SimpleAuthenticationSuccessHandler implements
      */
     @Override
     public void onAuthenticationSuccess(
-      final HttpServletRequest request,
-      final HttpServletResponse response,
+      final HttpServletRequest request,  final HttpServletResponse response,
       final Authentication authentication) throws IOException {
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
@@ -42,9 +41,7 @@ public class SimpleAuthenticationSuccessHandler implements
      * @param response - the response
      * @param authentication - the Authentication object which was created during the authentication process
      */
-    protected void handle(
-      final HttpServletRequest request,
-      final HttpServletResponse response,
+    protected void handle(final HttpServletRequest request, final HttpServletResponse response,
       final Authentication authentication) throws IOException {
         final String targetUrl = determineTargetUrl(authentication);
         if (response.isCommitted()) {
@@ -58,8 +55,7 @@ public class SimpleAuthenticationSuccessHandler implements
      * Javadoc.
      */
     protected String determineTargetUrl(final Authentication authentication) {
-        final Collection<? extends GrantedAuthority> authorities
-          = authentication.getAuthorities();
+        final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             if (("ROLE_ADMIN").equals(grantedAuthority.getAuthority())) {
                 return "/admin";
