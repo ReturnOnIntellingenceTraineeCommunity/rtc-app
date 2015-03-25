@@ -1,46 +1,13 @@
 /*Custom user profile style*/
-
-.nav-sidebar  a {
-    color: #000000;
-}
-
-.nav-sidebar > li > a:focus {
-    color: #000000;
-    background-color: #f5eacb;
-}
-
-.nav-sidebar li.active a:hover {
-    color: #000000;
-    background-color: #f5eacb;
-}
-
-.nav-sidebar > .active > a {
-    color: #000000;
-    background-color: #f5eacb;
-    font-weight: 600;
-}
-
-.navbar-default.navbar-fixed-top {
-    background-color: #00bfa8;
-    border-color: #E7E7E7;
-}
-
-.navbar-default.navbar-fixed-top {
-    background-color: #00bfa8;
-    border-color: #E7E7E7;
-}
-
 .navbar.navbar-inverse.navabar-course-filter {
     background-color: #f5eacb;
     border-color: #E7E7E7;
 }
 
-
 .btn-to-course {
     background-color: #d96a56;
     border-color: #d96a56;
 }
-
 
 .btn-to-course:hover {
     background-color: #e87363;
@@ -72,8 +39,6 @@
     width: 150px;
 }
 
-
-
 .thumb {
     display: flex;
 }
@@ -88,29 +53,9 @@
     color: #333330;
 }
 
-
 .open-sans-200-25 {
     font-size: 25px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 200;
     color: #333330;
 }
-
-
-@media (min-width: 768px) {
-    .sidebar {
-        position: fixed;
-        top: 51px;
-        bottom: 0;
-        left: 5%;
-        z-index: 1000;
-        display: block;
-        padding: 20px;
-        overflow-x: hidden;
-        overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        background-color: #ffffff;
-        border-right: 1px solid #eee;
-    }
-}
-
-

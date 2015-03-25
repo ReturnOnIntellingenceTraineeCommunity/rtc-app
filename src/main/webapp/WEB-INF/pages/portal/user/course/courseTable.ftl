@@ -48,23 +48,15 @@
                             <div class="open-sans-normal-16" style="padding-top: 10px; padding-bottom: 10px">
                                 <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
                             </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row" style="padding-top: 20px">
-                        <div class="" style="padding-left: 0;  padding-right: 15px;">
-                            <#if course.status != "ARCHIVED">
-                                <a class="btn btn-success btn-sharp btn-to-course" type="button" style="padding-top: 10px; float: left; width: 155px; height: 45px; text-align: center"
-                                   href="<@spring.url'/user/courses/courseDetails/${course.code}'/>">Go to course</a>
-                            </#if>
-
                             <div style="text-align: right">
-                                <@formMacro.capacityIndicator course.acceptedOrders  course.capacity/> <#-- capacity -->
+                                <#if course.status != "ARCHIVED">
+                                    <a class="btn btn-success btn-sharp btn-to-course" type="button" style="padding-top: 10px; float: left; width: 155px; height: 45px; text-align: center"
+                                       href="<@spring.url'/user/courses/courseDetails/${course.code}'/>">Go to course</a>
+                                </#if>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
 
             </div>
