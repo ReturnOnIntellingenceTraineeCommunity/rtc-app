@@ -100,7 +100,8 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
     @Transactional
     public void createRole(final RoleType type) {
         LOG.debug("Creating user role with type: {}", type);
-        userDao.createRole(type);
+        Role role = new Role(type);
+        userDao.createRole(role);
     }
 
     @Override

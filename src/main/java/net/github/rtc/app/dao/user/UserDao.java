@@ -35,11 +35,11 @@ public interface UserDao extends GenericDao<User> {
     Role findRoleByType(RoleType type);
 
     /**
-     * Create role with specified type
-     * @param type of role that needs to be created
+     * Create role
+     * @param role that needs to be created
      * @return created Role
      */
-    Role createRole(RoleType type);
+    Role createRole(Role role);
 
     /**
      * Get all users of specified role type
