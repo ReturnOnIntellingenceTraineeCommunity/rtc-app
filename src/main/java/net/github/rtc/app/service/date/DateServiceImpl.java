@@ -37,7 +37,6 @@ public class DateServiceImpl implements DateService {
                 days = days - currentMonthDays;
                 calendar.add(Calendar.MONTH, 1);
             }
-
             if (days > term) {
                 ++months;
             }
