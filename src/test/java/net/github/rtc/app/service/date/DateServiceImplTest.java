@@ -1,18 +1,13 @@
 package net.github.rtc.app.service.date;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
 
 public class DateServiceImplTest {
 
