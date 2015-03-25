@@ -11,6 +11,8 @@ import java.util.Date;
 @Service
 public class DateServiceImpl implements DateService {
 
+    private static final int term = 14;
+
     @Override
     public Date getCurrentDate() {
         return DateTime.now().toLocalDateTime().toDate();
@@ -36,7 +38,6 @@ public class DateServiceImpl implements DateService {
                 calendar.add(Calendar.MONTH, 1);
             }
 
-            final int term = 14;
             if (days > term) {
                 ++months;
             }
