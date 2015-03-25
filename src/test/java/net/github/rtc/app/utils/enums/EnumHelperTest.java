@@ -1,10 +1,8 @@
 package net.github.rtc.app.utils.enums;
 
 import junit.framework.Assert;
-import net.github.rtc.app.model.entity.activity.ActivityEntity;
 import net.github.rtc.app.model.entity.news.NewsStatus;
 import net.github.rtc.app.model.entity.user.RoleType;
-import org.h2.util.New;
 import org.junit.Test;
 
 import java.util.*;

@@ -20,6 +20,10 @@
             <id>bintray</id>
             <url>http://dl.bintray.com/rtcommunity/maven</url>
         </repository>
+        <repository>
+            <id>jboss</id>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -254,12 +258,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.182</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.jasypt</groupId>
             <artifactId>jasypt-hibernate4</artifactId>
             <version>1.9.2</version>
@@ -275,12 +273,6 @@
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
-            <version>5.5.1</version>
         </dependency>
     </dependencies>
 
@@ -409,6 +401,28 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.6</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jboss.tattletale</groupId>
+                <artifactId>tattletale-maven</artifactId>
+                <version>1.1.2.Final</version>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</source>
+                    <destination>${project.reporting.outputDirectory}/tattletale</destination>
+                    <reports>
+                        <report>jar</report>
+                        <report>multiplejars</report>
+                    </reports>
+                </configuration>
             </plugin>
         </plugins>
     </build>
