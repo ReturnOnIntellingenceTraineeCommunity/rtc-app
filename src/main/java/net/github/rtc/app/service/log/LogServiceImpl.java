@@ -2,6 +2,7 @@ package net.github.rtc.app.service.log;
 
 import net.github.rtc.app.model.dto.Log;
 import net.github.rtc.app.model.dto.filter.LogsSearchFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -17,17 +18,19 @@ import java.util.*;
 @Component
 public class LogServiceImpl implements LogService {
 
-    //todo: maybe move it to property file and use @Value?
-    private static final String PATH_FOLDER = "/var/log/rtc-app/logs/";
     private static final int BEGIN_INDEX = 22;
     private static final int BYTES = 1024;
 
+    @Value("${logs.path}")
+    private String pathFolder;
+
     @Override
     public List<Log> findAllLogs() {
-        final File folder = new File(getPathFolder());
+        final File folder = new File(pathFolder);
+        final File[] listOfFiles = folder.listFiles();
         final List<Log> listOfLogs = new ArrayList<>();
-        if (folder.listFiles().length > 0) {
-            for (final File fileEntry : folder.listFiles()) {
+        if (listOfFiles != null) {
+            for (final File fileEntry : listOfFiles) {
                 if (fileEntry.isFile()) {
                     try {
                         listOfLogs.add(new Log(fileEntry.getPath().substring(BEGIN_INDEX), getSize(fileEntry), getCreatedDate(fileEntry.getPath())));
@@ -49,7 +52,7 @@ public class LogServiceImpl implements LogService {
     @Override
     public String getLogData(final String fileName) {
         final StringBuilder builder = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(getPathFolder() + fileName), Charset.defaultCharset()))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(pathFolder + fileName), Charset.defaultCharset()))) {
             String currentLine;
             while ((currentLine = reader.readLine()) != null) {
                 builder.append(currentLine);
@@ -59,14 +62,6 @@ public class LogServiceImpl implements LogService {
             builder.append(e);
         }
         return builder.toString();
-    }
-
-    /**
-     * Get path of the folder that contains logs
-     * @return path
-     */
-    public static String getPathFolder() {
-        return PATH_FOLDER;
     }
 
     /**
@@ -86,7 +81,7 @@ public class LogServiceImpl implements LogService {
     /**
      * Get creation date of log file
      * @param filePath path of the file
-     * @return
+     * @return file created date
      * @throws IOException if file not found
      */
     private Date getCreatedDate(final String filePath) throws IOException {
@@ -104,7 +99,7 @@ public class LogServiceImpl implements LogService {
             Date checkedLogCreatedDate;
             Date logCreatedDate;
             checkedLogCreatedDate = parseDate(logsSearchFilter.getCreatedDate());
-            logs = new ArrayList<Log>();
+            logs = new ArrayList<>();
             for (Log log: findAllLogs()) {
                 logCreatedDate = parseDate(log.getCreatedDate());
                 switch (logsSearchFilter.getDateMoreLessEq()) {

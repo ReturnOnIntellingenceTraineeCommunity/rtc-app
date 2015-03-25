@@ -2,10 +2,10 @@ package net.github.rtc.app.controller.admin;
 
 import net.github.rtc.app.controller.common.MenuItem;
 import net.github.rtc.app.service.log.LogService;
-import net.github.rtc.app.service.log.LogServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +33,8 @@ public class LogController implements MenuItem {
     private static final String HEADER_KEY = "Content-Disposition";
     private static final String LOGS = "logs";
 
+    @Value("${logs.path}")
+    private String pathFolder;
 
     @Autowired
     private LogService logService;
@@ -48,7 +50,7 @@ public class LogController implements MenuItem {
     @RequestMapping(value = "/download/{fileName:.+}", method = RequestMethod.GET)
     @ResponseBody
     public void downloadLogFile(@PathVariable String fileName, final HttpServletResponse response) {
-        final File downloadFile = new File(LogServiceImpl.getPathFolder() + fileName);
+        final File downloadFile = new File(pathFolder + fileName);
         response.setContentType("text/plain");
         response.setHeader(HEADER_KEY, String.format("attachment; " + "filename=\"%s\"", fileName));
         try  {
