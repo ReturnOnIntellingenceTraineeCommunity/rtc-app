@@ -138,6 +138,12 @@
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
             <version>1.9.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>stax</groupId>
+                    <artifactId>stax-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -426,9 +432,9 @@
                     <source>${project.build.directory}/${project.build.finalName}/WEB-INF/lib</source>
                     <destination>${project.reporting.outputDirectory}/tattletale</destination>
                     <reports>
-                        <report>jar</report>
                         <report>multiplejars</report>
                     </reports>
+                    <failOnError>true</failOnError>
                 </configuration>
             </plugin>
         </plugins>
