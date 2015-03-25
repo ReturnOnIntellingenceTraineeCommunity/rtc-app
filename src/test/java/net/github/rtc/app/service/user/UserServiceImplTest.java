@@ -113,8 +113,16 @@ public class UserServiceImplTest extends AbstractCrudEventsServiceTest {
 
     @Test
     public void testCreateRole() {
-        userService.createRole(RoleType.ROLE_USER);
-        verify(userDao).createRole(RoleType.ROLE_USER);
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(final InvocationOnMock invocation) throws Throwable {
+                return invocation.getArguments()[0];
+            }
+        }).when(userDao).createRole(any(Role.class));
+
+        final Role role = userService.createRole(RoleType.ROLE_USER);
+        verify(userDao).createRole(any(Role.class));
+        assertEquals(role.getName(), RoleType.ROLE_USER);
     }
 
     @Test

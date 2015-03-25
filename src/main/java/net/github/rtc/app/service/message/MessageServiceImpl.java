@@ -56,7 +56,8 @@ public class MessageServiceImpl  extends AbstractGenericServiceImpl<Message> imp
 
     @Override
     public int getMessageCountByUserAndStatus(User user, MessageStatus status) {
-        return messageDao.getMessageCountByUserAndStatus(user, status);
+        final boolean isRead = (status == MessageStatus.READ);
+        return messageDao.getMessageCountByUserAndRead(user, isRead);
     }
 
     /**

@@ -76,7 +76,8 @@ public class MessageServiceTest {
     @Test
     public void testGetUserUnreadMessageCount() {
         User user = new User();
-        when(messageDao.getMessageCountByUserAndStatus(user, MessageStatus.UNREAD)).thenReturn(new Integer(0));
+        when(messageDao.getMessageCountByUserAndRead(user, true)).thenReturn(new Integer(1));
+        when(messageDao.getMessageCountByUserAndRead(user, false)).thenReturn(new Integer(0));
         assertEquals(0, messageService.getMessageCountByUserAndStatus(user, MessageStatus.UNREAD));
     }
 
