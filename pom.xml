@@ -236,6 +236,12 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>${poi.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>stax</groupId>
+                    <artifactId>stax-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -422,7 +428,7 @@
                 <version>1.1.2.Final</version>
                 <executions>
                     <execution>
-                        <phase>install</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -434,8 +440,13 @@
                     <reports>
                         <report>multiplejars</report>
                     </reports>
-                    <failOnError>true</failOnError>
+                    <failOnWarn>true</failOnWarn>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
             </plugin>
         </plugins>
     </build>
