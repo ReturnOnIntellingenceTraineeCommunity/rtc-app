@@ -40,16 +40,13 @@ public class HtmlTemplateLoader implements TemplateLoader {
      */
     @Override
     public Reader getReader(final Object templateSource, final String encoding) throws IOException {
-        final Reader reader = delegate.getReader(templateSource, encoding);
-        try {
+        try (final Reader reader = delegate.getReader(templateSource, encoding)) {
             final String templateText = IOUtils.toString(reader);
             if (!templateText.contains("<#ftl")) {
                 return new StringReader(ESCAPE_PREFIX + templateText + ESCAPE_SUFFIX);
             } else {
                 return new StringReader(templateText);
             }
-        } finally {
-            IOUtils.closeQuietly(reader);
         }
     }
 
