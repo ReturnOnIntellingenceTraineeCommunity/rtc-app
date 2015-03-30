@@ -1,7 +1,6 @@
 package net.github.rtc.app.utils.web.template;
 
 import freemarker.cache.FileTemplateLoader;
-import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import junit.framework.Assert;
 import org.junit.Test;

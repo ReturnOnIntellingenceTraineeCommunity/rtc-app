@@ -8,6 +8,7 @@ import net.github.rtc.app.service.export.table.XLSNXTable;
 import net.github.rtc.util.annotation.ForExport;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -19,11 +20,12 @@ import java.util.List;
  * This class helps to create xlsx report file of some model class
  * collection on disk
  */
-public final class ExportBuilder {
-    private ExportBuilder() {
+@Component
+public class ExportBuilder {
+    public ExportBuilder() {
     }
 
-    public static <T> void build(ExportDetails export, List<T> objectsList, String exportPath) throws NoSuchFieldException {
+    public <T> void build(ExportDetails export, List<T> objectsList, String exportPath) throws NoSuchFieldException {
         build(export.getFieldsFromClass(), objectsList, export.getName(), exportPath, export.getExportFormat());
     }
 
@@ -37,7 +39,7 @@ public final class ExportBuilder {
      * @param sheetName    name of sheet in xlsx file.
      * @param filePath     path where export file will be stored
      */
-    public static <T> void build(
+    public <T> void build(
             final List<Field> exportFields,
             final List<T> objectsList,
             final String sheetName,

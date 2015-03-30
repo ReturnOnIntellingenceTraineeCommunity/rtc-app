@@ -30,6 +30,8 @@ public class ExportServiceImpl extends AbstractGenericServiceImpl<ExportDetails>
     private ExportDao exportDao;
     @Autowired
     private DateService dateService;
+    @Autowired
+    private ExportBuilder exportBuilder;
     @Resource(name = "serviceHolder")
     private Map<Class, ? extends ModelService> serviceHolder;
     @Value("${export.path}")
@@ -79,7 +81,7 @@ public class ExportServiceImpl extends AbstractGenericServiceImpl<ExportDetails>
         final ModelService service = serviceHolder.get(export.getExportClass().getValue());
         final List<?> objects = service.findAll();
         try {
-            ExportBuilder.build(export, objects, filePath);
+            exportBuilder.build(export, objects, filePath);
             return export;
         } catch (final NoSuchFieldException e) {
             log.info("Report building failed: " + export.getCode());
