@@ -21,7 +21,7 @@ public interface UserService extends ModelService<User>, UserDetailsService, Gen
      * Create new user role and persist it to db
      * @param type role type
      */
-    Role createRole(RoleType type);
+    long createRole(RoleType type);
 
     /**
      * Get role from db by it's type

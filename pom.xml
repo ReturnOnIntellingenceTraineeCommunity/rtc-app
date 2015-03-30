@@ -138,12 +138,6 @@
             <groupId>com.sun.jersey</groupId>
             <artifactId>jersey-json</artifactId>
             <version>1.9.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>stax</groupId>
-                    <artifactId>stax-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -236,12 +230,6 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml-schemas</artifactId>
             <version>${poi.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>stax</groupId>
-                    <artifactId>stax-api</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
@@ -441,6 +429,9 @@
                         <report>multiplejars</report>
                     </reports>
                     <failOnWarn>true</failOnWarn>
+                    <excludes>
+                        <exclude>stax-api</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

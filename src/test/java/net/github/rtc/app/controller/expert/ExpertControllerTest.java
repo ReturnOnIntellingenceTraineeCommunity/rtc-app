@@ -81,14 +81,14 @@ public class ExpertControllerTest {
     public void testAcceptRequest() throws Exception {
         when(userCourseOrderService.findByCode(ORDER_CODE)).thenReturn(new UserCourseOrder());
         mockMvc.perform(get("/expert/order/accept/{orderId}", ORDER_CODE))
-                .andExpect(status().isFound());
+                .andExpect(status().isOk());
     }
 
     @Test
     public void testDeclineRequest() throws Exception {
         when(userCourseOrderService.findByCode(ORDER_CODE)).thenReturn(new UserCourseOrder());
         mockMvc.perform(get("/expert/order/decline/{orderId}", ORDER_CODE).param("reason","reason"))
-                .andExpect(status().isFound());
+                .andExpect(status().isOk());
     }
 
 }

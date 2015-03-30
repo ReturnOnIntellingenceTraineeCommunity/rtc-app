@@ -11,6 +11,7 @@ import net.github.rtc.app.service.security.AuthorizedUserProvider;
 import net.github.rtc.app.model.dto.filter.OrderSearchFilter;
 import net.github.rtc.app.model.dto.SearchResults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,15 +48,15 @@ public class OrderController implements MenuItem {
     }
 
     @RequestMapping(value = "/accept/{orderCode}", method = RequestMethod.GET)
-    public String acceptRequest(@PathVariable final String orderCode) {
+    @ResponseStatus(value = HttpStatus.OK)
+    public void acceptRequest(@PathVariable final String orderCode) {
         userCourseOrderService.acceptOrder(orderCode);
-        return REDIRECT_REQUESTS;
     }
 
     @RequestMapping(value = "/decline/{orderCode}", method = RequestMethod.GET)
-    public String declineRequest(@PathVariable final String orderCode, @RequestParam final String reason) {
+    @ResponseStatus(value = HttpStatus.OK)
+    public void declineRequest(@PathVariable final String orderCode, @RequestParam final String reason) {
         userCourseOrderService.rejectOrder(orderCode, reason);
-        return REDIRECT_REQUESTS;
     }
 
     @RequestMapping(value = "/user/{userCode}", method = RequestMethod.GET)
