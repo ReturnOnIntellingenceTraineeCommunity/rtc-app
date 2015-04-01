@@ -204,6 +204,15 @@ public class UserCourseOrderServiceImplTest extends AbstractGenericServiceTest {
         verify(userCourseOrderDao).getUserCourseOrder(userCode, courseCode); //different name in dao|service
     }
 
+    @Test
+    public void testFindLastByUserCode() throws Exception {
+        String userCode = "USER";
+
+        userCourseOrderService.findLastByUserCode(userCode);
+
+        verify(userCourseOrderDao).getLastUserCourseOrders(userCode);
+    }
+
 
     @Override
     protected GenericService<AbstractPersistenceObject> getGenericService() {

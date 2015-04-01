@@ -108,6 +108,12 @@ public class UserCourseOrderServiceImpl extends AbstractGenericServiceImpl<UserC
     }
 
     @Override
+    @Transactional
+    public List findLastByUserCode(String userCode) {
+        return userCourseOrderDao.getLastUserCourseOrders(userCode);
+    }
+
+    @Override
     protected GenericDao<UserCourseOrder> getDao() {
         return userCourseOrderDao;
     }

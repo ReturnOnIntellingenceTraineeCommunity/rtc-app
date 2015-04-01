@@ -130,6 +130,47 @@
         </div>
 
     </div>
+    <br>
 
-</div>
+    <h4><strong><@spring.message "user.myApplications"/></strong></h4>
+
+    <div id="data">
+    <table width="100%" class="table" style="margin-bottom: 5px" id="CourseTable">
+        <thead>
+        <tr>
+            <th><@spring.message "course.search.result.table.course"/></th>
+            <th><@spring.message "course.search.result.table.expert"/></th>
+            <th><@spring.message "course.search.result.table.startdate"/></th>
+            <th><@spring.message "course.search.result.table.duration"/></th>
+            <th><@spring.message "course.search.result.table.status"/></th>
+        </tr>
+        </thead>
+        <#if courses?has_content>
+            <#list courses as course>
+                <tr style="vertical-align: middle">
+                    <td style="vertical-align: middle; width: 25%">
+                        <a href="<@spring.url "/user/courses/courseDetails/${course.code}" />">${course.name}</a>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <#list course.experts as expert>
+                            <p>&nbsp${expert.name}&nbsp${expert.surname}</p>
+                        </#list>
+                    </td>
+                    <td style="vertical-align: middle; width: 25%">${course.startDate?string('dd-MMM-yyyy')}</td>
+                    <td style="vertical-align: middle; text-align: center">
+                        <div class="open-sans-normal-16" style="padding-top: 10px; padding-bottom: 10px">
+                            <@formMacro.weekSpan course.startDate course.endDate/><#--week-->
+                        </div>
+                    </td>
+                    <td style="vertical-align: middle; text-align: center">
+                        <#if "${course.status}" == "REJECTED"> <@formMacro.rtcColorLabel "${course.status}" "label-warning" "order.status."/></#if>
+                            <#if "${course.status}" == "ACCEPTED"><@formMacro.rtcColorLabel "${course.status}" "label-success" "order.status."/> </#if>
+                            <#if "${course.status}" == "PENDING"> <@formMacro.rtcColorLabel "${course.status}" "label-default" "order.status."/> </#if>
+                    </td>
+                </tr>
+            </#list>
+        </#if>
+    </table>
+    </div>
+
 </@layout.layout>

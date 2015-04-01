@@ -3,6 +3,8 @@ package net.github.rtc.app.dao.order;
 import net.github.rtc.app.dao.generic.GenericDao;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
 
+import java.util.List;
+
 /**
  * Data access object for UserCourseOrderDao domain class
  * @see net.github.rtc.app.model.entity.order.UserCourseOrder
@@ -23,4 +25,11 @@ public interface UserCourseOrderDao extends GenericDao<UserCourseOrder> {
      * @return founded userCode
      */
     UserCourseOrder getUserCourseOrder(String userCode, String courseCode);
+
+    /**
+     * Find last user course order with specified userCode
+     * @param userCode userCode criteria for search
+     * @return list of founded userCode
+     */
+    List getLastUserCourseOrders(String userCode);
 }

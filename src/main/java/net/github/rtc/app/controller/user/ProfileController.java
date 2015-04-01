@@ -1,8 +1,12 @@
 package net.github.rtc.app.controller.user;
 
 import net.github.rtc.app.controller.common.MenuItem;
+import net.github.rtc.app.model.entity.course.Course;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
 import net.github.rtc.app.model.entity.user.*;
+import net.github.rtc.app.service.builder.UserCourseOrderDtoBuilder;
+import net.github.rtc.app.service.course.CourseService;
+import net.github.rtc.app.service.order.UserCourseOrderService;
 import net.github.rtc.app.service.user.UserService;
 import net.github.rtc.app.service.security.AuthorizedUserProvider;
 import net.github.rtc.app.utils.propertyeditors.CustomTypeEditor;
@@ -36,15 +40,20 @@ public class ProfileController implements MenuItem {
     @Autowired
     private UserService userService;
     @Autowired
+    private CourseService courseService;
+    @Autowired
     private ValidationContext validationContext;
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private UserCourseOrderService courseOrderService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView user() {
         final ModelAndView mav = new ModelAndView(getRoot() + "/profile/profile");
         final User user = AuthorizedUserProvider.getAuthorizedUser();
         mav.addObject(USER, user);
+        mav.addObject("courses", getLastCourses(user));
         return mav;
     }
 
@@ -121,5 +130,18 @@ public class ProfileController implements MenuItem {
     @Override
     public String getMenuItem() {
         return "profile";
+    }
+
+
+    public List getLastCourses(User user) {
+        final List coursesDto = new LinkedList();
+        UserCourseOrderDtoBuilder courseOrderDtoBuilder;
+        final List courseOrders = courseOrderService.findLastByUserCode(user.getCode());
+        for (Object order : courseOrders) {
+            final Course course = courseService.findByCode(((UserCourseOrder) order).getCourseCode());
+            courseOrderDtoBuilder = new UserCourseOrderDtoBuilder((UserCourseOrder) order, course);
+            coursesDto.add(courseOrderDtoBuilder.build());
+        }
+        return coursesDto;
     }
 }

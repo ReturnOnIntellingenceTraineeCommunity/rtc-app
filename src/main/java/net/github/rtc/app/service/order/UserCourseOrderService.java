@@ -7,6 +7,8 @@ import net.github.rtc.app.service.generic.GenericService;
 import net.github.rtc.app.model.dto.filter.OrderSearchFilter;
 import net.github.rtc.app.model.dto.SearchResults;
 
+import java.util.List;
+
 /**
  * The service class that is responsible for operation on UserCourseOrder model class
  * @see net.github.rtc.app.model.entity.order.UserCourseOrder
@@ -58,4 +60,11 @@ public interface UserCourseOrderService extends GenericService<UserCourseOrder> 
      * @return order with mentioned params
      */
     UserCourseOrder findByUserCodeAndCourseCode(String userCode, String courseCode);
+
+    /**
+     * Get list of orders with specified user code
+     * @param userCode user code for order
+     * @return list of orders with mentioned param
+     */
+    List findLastByUserCode(String userCode);
 }
