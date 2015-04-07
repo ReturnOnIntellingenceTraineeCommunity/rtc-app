@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-@RequestMapping(value={"/user/profile", "/expert/profile", "/admin/profile"})
+@RequestMapping(value = { "/user/profile", "/expert/profile", "/admin/profile" })
 public class ProfileController implements MenuItem {
 
     private static final String USER_ROOT = "portal/user";

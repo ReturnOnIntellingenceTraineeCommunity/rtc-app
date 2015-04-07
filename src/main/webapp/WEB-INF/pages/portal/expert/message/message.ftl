@@ -46,7 +46,7 @@
     function search(page) {
         $.ajax({
             type: "GET",
-            url: '<@spring.url "/user/message/messageTable"/>',
+            url: '<@spring.url "/expert/message/messageTable"/>',
             data: serializedFilter + "&page=" + page,
             success: function (result) {
                 $("#searchTable").html(result)
@@ -98,11 +98,11 @@
         }
         $.ajax({
             type: "GET",
-            url: '<@spring.url"/user/message/remove/"/>' + messageCode,
+            url: '<@spring.url"/expert/message/remove/"/>' + messageCode,
             success: function () {
                 $.ajax({
                     type: "GET",
-                    url: '<@spring.url"/user/message/unreadMessages"/>',
+                    url: '<@spring.url"/expert/message/unreadMessages"/>',
                     success: function (data) {
                         if(data != 0) {
                             $("#headerMessageIndicator").text(data);

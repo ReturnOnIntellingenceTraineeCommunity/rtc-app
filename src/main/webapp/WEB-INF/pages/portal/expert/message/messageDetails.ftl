@@ -11,7 +11,7 @@
 <br/>
 <div class="row">
     <div class="col-md-12" style="text-align: right">
-        <a href="<@spring.url "/user/message"/>" class="btn btn-default"><@spring.message "action.cancel"/></a>
+        <a href="<@spring.url "/expert/message"/>" class="btn btn-default"><@spring.message "action.cancel"/></a>
     </div>
 </div>
 </@layout.layout>

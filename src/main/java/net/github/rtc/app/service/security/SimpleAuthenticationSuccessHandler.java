@@ -1,8 +1,9 @@
 package net.github.rtc.app.service.security;
 
 
+import net.github.rtc.app.model.entity.user.RoleType;
+import net.github.rtc.app.model.entity.user.User;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.WebAttributes;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Collection;
 
 @Component
 public class SimpleAuthenticationSuccessHandler implements
@@ -55,16 +55,17 @@ public class SimpleAuthenticationSuccessHandler implements
      * Javadoc.
      */
     protected String determineTargetUrl(final Authentication authentication) {
-        final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-        for (final GrantedAuthority grantedAuthority : authorities) {
-            if (("ROLE_ADMIN").equals(grantedAuthority.getAuthority())) {
-                return "/admin";
-            } else {
-                return "/user/profile/";
-            }
+        final User authorizedUser = (User) authentication.getPrincipal();
+
+        if (authorizedUser.hasRole(RoleType.ROLE_ADMIN.name())) {
+            return "/admin";
         }
-        return "/";
+        if (authorizedUser.hasRole(RoleType.ROLE_EXPERT.name())) {
+            return "/expert/profile/";
+        }
+        return "/user/profile/";
     }
+
 
     /**
      * Remove attributes from session which have got from request

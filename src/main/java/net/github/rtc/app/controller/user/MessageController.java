@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value = {"/user/message", "/expert/message"})
+@RequestMapping(value = { "/user/message", "/expert/message" })
 public class MessageController implements MenuItem {
     private static final String USER_ROOT = "portal/user/message";
     private static final String EXPERT_ROOT = "portal/expert/message";
