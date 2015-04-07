@@ -8,9 +8,9 @@ public class ContextProfileInitializer implements ApplicationContextInitializer<
 
     //workaround to use tomcat7:run coz it don't use maven filtering in web.xml
     public void initialize(ConfigurableWebApplicationContext ctx) {
-        ConfigurableEnvironment environment = ctx.getEnvironment();
-        String environmentType = ctx.getServletContext().getInitParameter("environment.type");
-        if(!environmentType.equals("${environment.type}")) {
+        final ConfigurableEnvironment environment = ctx.getEnvironment();
+        final String environmentType = ctx.getServletContext().getInitParameter("environment.type");
+        if (!"${environment.type}".equals(environmentType)) {
             environment.setActiveProfiles(environmentType);
         } else {
             environment.setActiveProfiles("dev");
