@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
-@RequestMapping("/user/profile")
+@RequestMapping(value={"/user/profile", "/expert/profile", "/admin/profile"})
 public class ProfileController implements MenuItem {
 
     private static final String USER_ROOT = "portal/user";
@@ -37,6 +37,11 @@ public class ProfileController implements MenuItem {
     private static final String REDIRECT = "redirect:/";
     private static final String VALIDATION_RULES = "validationRules";
     private static final boolean IS_ACTIVE = true;
+
+    private static final String ADMIN_ROOT_URL = "admin/profile";
+    private static final String EXPERT_ROOT_URL = "/expert/profile";
+    private static final String USER_ROOT_URL = "/user/profile";
+
     @Autowired
     private UserService userService;
     @Autowired
@@ -85,7 +90,7 @@ public class ProfileController implements MenuItem {
         final Authentication request =  new UsernamePasswordAuthenticationToken(user, user.getPassword());
         authenticationManager.authenticate(request);
         SecurityContextHolder.getContext().setAuthentication(request);
-        return new ModelAndView(REDIRECT + "user/profile");
+        return new ModelAndView(REDIRECT + getRootURL());
     }
 
     private String getRoot() {
@@ -98,6 +103,18 @@ public class ProfileController implements MenuItem {
             return EXPERT_ROOT;
         }
         return USER_ROOT;
+    }
+
+    private String getRootURL() {
+        final User authorizedUser = AuthorizedUserProvider.getAuthorizedUser();
+
+        if (authorizedUser.hasRole(RoleType.ROLE_ADMIN.name())) {
+            return ADMIN_ROOT_URL;
+        }
+        if (authorizedUser.hasRole(RoleType.ROLE_EXPERT.name())) {
+            return EXPERT_ROOT_URL;
+        }
+        return USER_ROOT_URL;
     }
 
     /**

@@ -124,7 +124,7 @@
 
     <div class="row">
         <div style="text-align: right">
-            <a href="<@spring.url "/user/profile/edit" />">
+            <a href="<@spring.url "/expert/profile/edit" />">
                 <input type="submit" class="btn btn-primary" value="<@spring.message "action.edit"/>">
             </a>
         </div>
