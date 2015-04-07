@@ -2,6 +2,7 @@ package net.github.rtc.app.service.security;
 
 import net.github.rtc.app.model.entity.user.Role;
 import net.github.rtc.app.model.entity.user.RoleType;
+import net.github.rtc.app.model.entity.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -28,17 +29,17 @@ public class SimpleAuthenticationSuccessHandlerTest {
 
     @Test
     public void testAdminSuccessHandle() throws IOException {
-        testHandle("/admin", getAdminAuth());
+        testHandle("/admin", getAuth(RoleType.ROLE_ADMIN));
     }
 
     @Test
     public void testUserSuccessHandle() throws IOException {
-        testHandle("/user/profile/", getUserAuth());
+        testHandle("/user/profile/", getAuth(RoleType.ROLE_USER));
     }
 
     @Test
     public void testUserExpertHandle() throws IOException {
-        testHandle("/user/profile/", getExpertAuth());
+        testHandle("/expert/profile/", getAuth(RoleType.ROLE_EXPERT));
     }
 
     @Test
@@ -65,7 +66,7 @@ public class SimpleAuthenticationSuccessHandlerTest {
         SimpleAuthenticationSuccessHandler successHandler = new SimpleAuthenticationSuccessHandler();
         request.setRequestURI("/");
         request.setSession(null);
-        successHandler.onAuthenticationSuccess(request, response, getUserAuth());
+        successHandler.onAuthenticationSuccess(request, response, getAuth(RoleType.ROLE_USER));
         assertNull(request.getSession().getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION));
         assertEquals("/user/profile/", response.getRedirectedUrl());
     }
@@ -77,28 +78,28 @@ public class SimpleAuthenticationSuccessHandlerTest {
         response.setCommitted(true);
         SimpleAuthenticationSuccessHandler successHandler = new SimpleAuthenticationSuccessHandler();
         request.setRequestURI("/");
-        successHandler.handle(request, response, getExpertAuth());
+        successHandler.handle(request, response, getAuth(RoleType.ROLE_EXPERT));
         assertNull(response.getRedirectedUrl());
     }
 
 
-    private Authentication getAdminAuth() {
-        Role adminRole = new Role(RoleType.ROLE_ADMIN.name());
-        return new UsernamePasswordAuthenticationToken(null, null, Arrays.asList(adminRole));
+    private Authentication getAuth(RoleType roleType) {
+        Role adminRole = new Role(roleType);
+
+        User authorizedUser = new User();
+        authorizedUser.setEmail("mail");
+        authorizedUser.setAuthorities(Arrays.asList(adminRole));
+
+        return new UsernamePasswordAuthenticationToken(authorizedUser, null);
     }
 
-    private Authentication getUserAuth() {
-        Role userRole = new Role(RoleType.ROLE_USER.name());
-        return new UsernamePasswordAuthenticationToken(null, null, Arrays.asList(userRole));
-    }
-
-    private Authentication getExpertAuth() {
-        Role expertRole = new Role(RoleType.ROLE_EXPERT.name());
-        return new UsernamePasswordAuthenticationToken(null, null, Arrays.asList(expertRole));
-    }
 
     private Authentication getEmptyAuth() {
+        User authorizedUser = new User();
+        authorizedUser.setEmail("mail");
+        authorizedUser.setAuthorities(new ArrayList<Role>());
+
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-        return new UsernamePasswordAuthenticationToken(null, null, grantedAuthorityList);
+        return new UsernamePasswordAuthenticationToken(authorizedUser, null, grantedAuthorityList);
     }
 }

@@ -63,7 +63,10 @@ public class SimpleAuthenticationSuccessHandler implements
         if (authorizedUser.hasRole(RoleType.ROLE_EXPERT.name())) {
             return "/expert/profile/";
         }
-        return "/user/profile/";
+        if (authorizedUser.hasRole(RoleType.ROLE_USER.name())) {
+            return "/user/profile/";
+        }
+        return "/";
     }
 
 
