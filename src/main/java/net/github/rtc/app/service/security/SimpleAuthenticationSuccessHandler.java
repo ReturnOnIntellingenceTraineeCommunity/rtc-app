@@ -98,5 +98,4 @@ public class SimpleAuthenticationSuccessHandler implements
     protected RedirectStrategy getRedirectStrategy() {
         return redirectStrategy;
     }
-
 }
