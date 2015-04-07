@@ -109,4 +109,14 @@
         <param-name>defaultHtmlEscape</param-name>
         <param-value>true</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>contextInitializerClasses</param-name>
+        <param-value>net.github.rtc.app.utils.ContextProfileInitializer</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>environment.type</param-name>
+        <param-value>${environment.type}</param-value>
+    </context-param>
 </web-app>

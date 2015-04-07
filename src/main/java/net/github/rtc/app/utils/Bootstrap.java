@@ -10,10 +10,12 @@ import org.jasypt.hibernate4.encryptor.HibernatePBEStringEncryptor;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
+@Profile("dev")
 @Component
 @DependsOn("allowEncryptionWithoutJCE")
 public class Bootstrap implements InitializingBean {
