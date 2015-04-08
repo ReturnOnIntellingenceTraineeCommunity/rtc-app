@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +55,7 @@ public class CourseServiceImpl extends AbstractCrudEventsService<Course> impleme
     }
 
     @Override
-    public void publish(String courseCode, boolean isNewsCreated) {
+    public void publish(@Nonnull String courseCode, boolean isNewsCreated) {
         Assert.notNull(courseCode, COURSE_CODE_CANNOT_BE_NULL);
         final Course course = findByCode(courseCode);
         Assert.notNull(course, COURSE_CANNOT_BE_NULL);
@@ -64,7 +65,7 @@ public class CourseServiceImpl extends AbstractCrudEventsService<Course> impleme
     }
 
     @Override
-    public void archive(String courseCode) {
+    public void archive(@Nonnull String courseCode) {
         Assert.notNull(courseCode, COURSE_CODE_CANNOT_BE_NULL);
         final Course course = findByCode(courseCode);
         Assert.notNull(course, COURSE_CANNOT_BE_NULL);
@@ -81,6 +82,7 @@ public class CourseServiceImpl extends AbstractCrudEventsService<Course> impleme
     }
 
     @Override
+    @Nonnull
     public UserCourseDto getUserCourseDtoByCode(String code) {
         final Course course = findByCode(code);
         return new UserCourseDtoBuilder(course).

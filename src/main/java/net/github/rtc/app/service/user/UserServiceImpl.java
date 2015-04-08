@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,7 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
     }
 
     @Override
+    @Nonnull
     public User create(final User user) {
         user.setRegisterDate(dateService.getCurrentDate());
         super.create(user);
@@ -54,12 +56,14 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
     }
 
     @Override
+    @Nonnull
     public User create(User user, MultipartFile image, boolean isActive) {
         setStatusAndImage(user, image, isActive);
         return create(user);
     }
 
     @Override
+    @Nonnull
     public User update(User user, MultipartFile image, boolean isActive) {
         setStatusAndImage(user, image, isActive);
         return update(user);

@@ -5,6 +5,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -21,8 +23,9 @@ public class TemplateStringBuilder {
     /**
      * Get string from freemarker template that contains no params.
      * @param templatePath the path to template file
-     * @return resulting string
+     * @return resulting string, cannot be null
      */
+    @Nonnull
     public String build(String templatePath) {
         return build(templatePath, new HashMap<String, Object>());
     }
@@ -31,9 +34,10 @@ public class TemplateStringBuilder {
      * Get string from freemarker template that contains some params.
      * @param templatePath the template path
      * @param templateParams Map that contains params in for freemarker template
-     * @return resulting string
+     * @return resulting string, cannot be null
      */
-    public String build(String templatePath, Map<String, Object> templateParams) {
+    @Nonnull
+    public String build(String templatePath, @Nullable Map<String, Object> templateParams) {
         try {
             final Configuration config = new Configuration();
             config.setClassForTemplateLoading(this.getClass(), "/");

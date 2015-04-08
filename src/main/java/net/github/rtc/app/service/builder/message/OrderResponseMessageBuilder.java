@@ -15,6 +15,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +47,7 @@ public class OrderResponseMessageBuilder {
     @Autowired
     private MessageSource messageSource;
 
+    @Nonnull
     public List<Message> build(UserCourseOrder order) {
         final Message msg = new Message();
         final User receiver = userService.findByCode(order.getUserCode());
@@ -58,6 +60,7 @@ public class OrderResponseMessageBuilder {
         return Arrays.asList(msg);
     }
 
+    @Nonnull
     private String getSubjectText(final UserRequestStatus status) {
         switch (status) {
             case ACCEPTED:
@@ -75,6 +78,7 @@ public class OrderResponseMessageBuilder {
         }
     }
 
+    @Nonnull
     private String getDescriptionText(final UserCourseOrder order) {
         final Map<String, Object> templateObj = new HashMap<>();
         templateObj.put("courseName", courseService.findByCode(order.getCourseCode()).getName());
@@ -93,6 +97,7 @@ public class OrderResponseMessageBuilder {
         return templateStringBuilder.build(DESCRIPTION_TEMPLATE_PATH, templateObj);
     }
 
+    @Nonnull
     private String getLocalizedParam(String code) {
         return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
     }

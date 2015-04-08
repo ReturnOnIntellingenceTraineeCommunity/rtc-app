@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 /**
@@ -25,9 +26,10 @@ public class UserAuthenticationProvider implements AuthenticationProvider {
     /**
      * Performs authentication
      * @param authentication - the authentication request object.
-     * @return a fully authenticated object including credentials
+     * @return a fully authenticated object including credentials, cannot be null
      */
     @Override
+    @Nonnull
     public Authentication authenticate(final Authentication authentication) {
         final String username = authentication.getName();
         final String password = (String) authentication.getCredentials();

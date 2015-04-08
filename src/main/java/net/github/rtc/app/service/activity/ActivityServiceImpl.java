@@ -8,11 +8,14 @@ import net.github.rtc.app.service.generic.AbstractGenericServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
+
 @Service
 public class ActivityServiceImpl extends AbstractGenericServiceImpl<Activity> implements ActivityService {
     @Autowired
     private ActivityDao activityDao;
 
+    @Nonnull
     protected GenericDao<Activity> getDao() {
         return activityDao;
     }

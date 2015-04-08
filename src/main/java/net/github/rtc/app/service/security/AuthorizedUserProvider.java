@@ -5,6 +5,8 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import javax.annotation.Nonnull;
+
 public final class AuthorizedUserProvider {
 
 
@@ -14,8 +16,9 @@ public final class AuthorizedUserProvider {
 
     /**
      * Receive User-object of current authorized user
-     * @return User object of current authorized user
+     * @return User object of current authorized user, cannot be null
      */
+    @Nonnull
     static public User getAuthorizedUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication instanceof AnonymousAuthenticationToken || authentication == null) {
@@ -27,8 +30,9 @@ public final class AuthorizedUserProvider {
 
     /**
      * Receive current authorized user name
-     * @return string username of authorized user
+     * @return string username of authorized user, cannot be null
      */
+    @Nonnull
     static public String getAuthorizedUserName() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }

@@ -69,12 +69,6 @@ public class NewsBuilderTest {
         assertEquals(TEST_STRING, news.getDescription());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testNewsCreationWrongArgumentCourse() {
-        newsBuilder.build(null);
-    }
-
-
     private User getAuthor() {
         return AuthorizedUserProvider.getAuthorizedUser();
     }

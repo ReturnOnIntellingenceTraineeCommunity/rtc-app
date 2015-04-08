@@ -17,6 +17,7 @@ import net.github.rtc.app.model.dto.filter.MessageSearchFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class MessageServiceImpl  extends AbstractGenericServiceImpl<Message> imp
     }
 
     @Override
+    @Nonnull
     public Message getMessage(String messageCode) {
         final Message message = findByCode(messageCode);
         if (!message.isRead()) {

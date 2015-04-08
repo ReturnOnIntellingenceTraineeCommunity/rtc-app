@@ -12,6 +12,7 @@ import net.github.rtc.app.service.builder.TemplateStringBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 @Component("orderSendMessageBuilder")
@@ -31,7 +32,8 @@ public class OrderSendMessageBuilder {
     @Autowired
     private TemplateStringBuilder templateStringBuilder;
 
-    public List<Message> build(UserCourseOrder order) {
+    @Nonnull
+    public List<Message> build(@Nonnull UserCourseOrder order) {
         final List<Message> msgList = new ArrayList<>();
         final Course course = courseService.findByCode(order.getCourseCode());
 
@@ -49,11 +51,13 @@ public class OrderSendMessageBuilder {
         return msgList;
     }
 
+    @Nonnull
     private String getMessageSubject() {
         return templateStringBuilder.build(SUBJECT_TEMPLATE_PATH);
     }
 
-    private String getMessageDescription(UserCourseOrder order) {
+    @Nonnull
+    private String getMessageDescription(@Nonnull UserCourseOrder order) {
         final User user =  userService.findByCode(order.getUserCode());
 
         final Map<String, Object> templateObj = new HashMap<>();

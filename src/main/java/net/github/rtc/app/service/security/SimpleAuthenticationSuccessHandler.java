@@ -10,6 +10,7 @@ import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -54,6 +55,7 @@ public class SimpleAuthenticationSuccessHandler implements
      * Builds the target URL according to the logic defined in the main class
      * Javadoc.
      */
+    @Nonnull
     protected String determineTargetUrl(final Authentication authentication) {
         final User authorizedUser = (User) authentication.getPrincipal();
 

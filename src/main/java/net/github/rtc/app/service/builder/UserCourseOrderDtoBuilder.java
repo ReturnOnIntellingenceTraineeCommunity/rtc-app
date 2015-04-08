@@ -4,6 +4,8 @@ import net.github.rtc.app.model.dto.user.UserCourseOrderDto;
 import net.github.rtc.app.model.entity.course.Course;
 import net.github.rtc.app.model.entity.order.UserCourseOrder;
 
+import javax.annotation.Nonnull;
+
 /**
  * Object that helps to build UserCourseOrderDto
  * @see net.github.rtc.app.model.dto.user.UserCourseOrderDto
@@ -25,8 +27,9 @@ public class UserCourseOrderDtoBuilder {
      * Initialise course fields in dto
      * @param order the order that contains required fields
      * @param course the course on what UserCourseOrderDto is based
-     * @return this object
+     * @return this object, cannot be null
      */
+    @Nonnull
     public UserCourseOrderDtoBuilder buildCourseFields(UserCourseOrder order, Course course) {
         courseOrderDto.setCode(course.getCode());
         courseOrderDto.setName(course.getName());
@@ -39,8 +42,9 @@ public class UserCourseOrderDtoBuilder {
 
     /**
      * Return current prebuilt UserCourseOrderDto object
-     * @return the result dto
+     * @return the result dto, cannot be null
      */
+    @Nonnull
     public UserCourseOrderDto build() {
         return courseOrderDto;
     }

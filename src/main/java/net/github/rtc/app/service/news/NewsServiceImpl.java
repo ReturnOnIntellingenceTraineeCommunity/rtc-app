@@ -13,6 +13,7 @@ import net.github.rtc.app.service.builder.NewsBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 @Service
@@ -31,6 +32,7 @@ public class NewsServiceImpl extends AbstractCrudEventsService<News> implements 
     }
 
     @Override
+    @Nonnull
     public News create(News news, boolean isPublished) {
         setAuthorAndDateAttributes(news);
         if (isPublished) {
@@ -40,6 +42,7 @@ public class NewsServiceImpl extends AbstractCrudEventsService<News> implements 
     }
 
     @Override
+    @Nonnull
     public News update(News news, boolean isPublished) {
         if (isPublished) {
             setPublishedAttribute(news);

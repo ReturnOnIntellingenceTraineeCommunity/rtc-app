@@ -2,6 +2,8 @@ package net.github.rtc.app.service.builder;
 
 import net.github.rtc.app.model.dto.SearchResults;
 
+import javax.annotation.Nonnull;
+
 
 /**
  * The class that helps to build Search results of one type to another
@@ -17,8 +19,9 @@ public class SearchResultsBuilder<T, E> {
     /**
      * Sets search results to transform.
      * @param searchResultsToTransform the search results to transform
-     * @return this object
+     * @return this object, cannot be null
      */
+    @Nonnull
     public SearchResultsBuilder<T, E> setSearchResultsToTransform(SearchResults<T> searchResultsToTransform) {
         this.searchResultsToTransform = searchResultsToTransform;
         return this;
@@ -27,8 +30,9 @@ public class SearchResultsBuilder<T, E> {
     /**
      * Sets search results mapper
      * @param searchResultsMapper object that map from one type of the list to another
-     * @return this object
+     * @return this object, cannot be null
      */
+    @Nonnull
     public SearchResultsBuilder<T, E> setSearchResultsMapper(SearchResultsMapper<T, E> searchResultsMapper) {
         this.searchResultsMapper = searchResultsMapper;
         return this;
@@ -36,8 +40,9 @@ public class SearchResultsBuilder<T, E> {
 
     /**
      * Return current prebuilt SearchResults object
-     * @return the resulting object
+     * @return the resulting object, cannot be null
      */
+    @Nonnull
     public SearchResults<E> build() {
         final SearchResults<E> transformedSearchResults = new SearchResults<>();
         transformedSearchResults.setResults(searchResultsMapper.map(searchResultsToTransform.getResults()));

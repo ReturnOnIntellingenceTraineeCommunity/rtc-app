@@ -3,6 +3,8 @@ package net.github.rtc.app.service.builder;
 import net.github.rtc.app.model.dto.user.UserCourseDto;
 import net.github.rtc.app.model.entity.course.Course;
 
+import javax.annotation.Nonnull;
+
 /**
  * Object that helps to build UserCourseDto
  * @see net.github.rtc.app.model.dto.user.UserCourseDto
@@ -22,8 +24,9 @@ public class UserCourseDtoBuilder {
     /**
      * Initialise course fields in dto
      * @param course the course that contains required fields
-     * @return this object
+     * @return this object, cannot be null
      */
+    @Nonnull
     public UserCourseDtoBuilder buildCourseFields(Course course) {
         courseDto.setCapacity(course.getCapacity());
         courseDto.setCode(course.getCode());
@@ -41,8 +44,9 @@ public class UserCourseDtoBuilder {
     /**
      * Initialise accepted orders count in dto
      * @param acceptedOrdersCount the accepted orders count
-     * @return this object
+     * @return this object, cannot be null
      */
+    @Nonnull
     public UserCourseDtoBuilder buildAcceptedOrdersCount(int acceptedOrdersCount) {
         courseDto.setAcceptedOrders(acceptedOrdersCount);
         return this;
@@ -51,8 +55,9 @@ public class UserCourseDtoBuilder {
     /**
      * Initialise currentUserAssigned field
      * @param currentUserAssigned  true if current user is assigned for course
-     * @return this object
+     * @return this object, cannot be null
      */
+    @Nonnull
     public UserCourseDtoBuilder buildCurrentUserAssigned(boolean currentUserAssigned) {
         courseDto.setCurrentUserAssigned(currentUserAssigned);
         return this;
@@ -60,8 +65,9 @@ public class UserCourseDtoBuilder {
 
     /**
      * Return current prebuilt UserCourseDto object
-     * @return the result dto
+     * @return the result dto, cannot be null
      */
+    @Nonnull
     public UserCourseDto build() {
         return courseDto;
     }

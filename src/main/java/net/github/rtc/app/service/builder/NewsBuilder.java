@@ -10,6 +10,7 @@ import net.github.rtc.app.service.security.AuthorizedUserProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -32,13 +33,11 @@ public class NewsBuilder {
 
     /**
      * Build news from course
-     * @param course the course from what news needs to be built
-     * @return the news based on course
+     * @param course the course from what news needs to be built, cannot be null
+     * @return the news based on course, cannot be null
      */
-    public News build(Course course) {
-        if (course == null) {
-            throw new IllegalArgumentException("course = null");
-        }
+    @Nonnull
+    public News build(@Nonnull Course course) {
 
         final News news = new News();
         final Map<String, Object> templateMap = new HashMap<>();
@@ -67,8 +66,9 @@ public class NewsBuilder {
     /**
      * Get description of the news depending on course
      * @param course the course that needs to be described
-     * @return description in string
+     * @return description in string, cannot be null
      */
+    @Nonnull
     private String getCourseDescription(final Course course) {
         final Map<String, Object> templateMap = new HashMap<>();
         templateMap.put("termInMonth", dateService.getMothPeriod(course.getStartDate(), course.getEndDate()));
@@ -79,7 +79,7 @@ public class NewsBuilder {
     /**
      * Detect what course description param should be used depending on course type
      * @param course course that needs description
-     * @return path to template that contains needed description
+     * @return path to template that contains needed description, ca
      */
     private String getCourseDescriptionTemplatePath(final Course course) {
         if (course.getTypes().size() == 1) {

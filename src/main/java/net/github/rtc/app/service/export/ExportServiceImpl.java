@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Nullable;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
@@ -44,6 +45,7 @@ public class ExportServiceImpl extends AbstractGenericServiceImpl<ExportDetails>
 
     @Override
     @Transactional
+    @Nullable
     public ExportDetails create(final ExportDetails export) {
         log.info("Creating export: " + export);
         export.setCode(getCode());
@@ -62,6 +64,7 @@ public class ExportServiceImpl extends AbstractGenericServiceImpl<ExportDetails>
 
     @Override
     @Transactional
+    @Nullable
     public ExportDetails update(final ExportDetails export) {
         log.info("Updating export: " + export);
         try {
@@ -76,6 +79,7 @@ public class ExportServiceImpl extends AbstractGenericServiceImpl<ExportDetails>
         }
     }
 
+    @Nullable
     public ExportDetails compileExport(ExportDetails export) {
         final String filePath = exportPath + export.getCode() + DOT + export.getExportFormat().toString().toLowerCase();
         final ModelService service = serviceHolder.get(export.getExportClass().getValue());

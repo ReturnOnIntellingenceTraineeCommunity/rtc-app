@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,8 +27,9 @@ public class MailMessageBuilder {
     /**
      * Build mail register notification based on User object
      * @param user user that needs register notification
-     * @return built SimpleMailMessage
+     * @return built SimpleMailMessage, cannot be null
      */
+    @Nonnull
     public SimpleMailMessage build(User user) {
         return build(user.getName(), user.getEmail());
     }
@@ -36,8 +38,9 @@ public class MailMessageBuilder {
      * Create mail register notification based on user name and email
      * @param name name of the receiver user
      * @param mail email address of the receiver
-     * @return built SimpleMailMessage
+     * @return built SimpleMailMessage, cannot be null
      */
+    @Nonnull
     public SimpleMailMessage build(String name, String mail) {
 
         final Map<String, Object> templateParam = new HashMap<>();
