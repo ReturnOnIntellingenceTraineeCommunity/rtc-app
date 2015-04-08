@@ -65,7 +65,7 @@ public class MessageSearchFilter extends AbstractSearchFilter {
     public DetachedCriteria getCriteria() {
         final DetachedCriteria criteria = DetachedCriteria.forClass(Message.class);
 
-        if (user != null && !("").equals(user)) {
+        if (user != null && !("").equals(user.toString())) {
             criteria.add(Restrictions.eq(RECEIVER, user));
         }
 
