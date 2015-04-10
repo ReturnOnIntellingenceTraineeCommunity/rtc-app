@@ -17,24 +17,30 @@
         <form-login login-page="/login" default-target-url="/login_attempt"
                     authentication-failure-url="/loginfailed"
                     authentication-success-handler-ref="simpleAuthenticationSuccessHandler"/>
-        <logout logout-url="/logout" logout-success-url="/"
-                delete-cookies="JSESSIONID"/>
+        <logout logout-url="/logout" logout-success-url="/" delete-cookies="JSESSIONID"/>
         <headers >
             <cache-control />
             <hsts/>
         </headers>
         <custom-filter ref="ajaxTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
         <remember-me key="uniqueAndSecret" token-validity-seconds="86400"/>
+        <custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
     </http>
 
-    <beans:bean id="passwordEncoder"
-                class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+    <beans:bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+        <beans:constructor-arg index="0" ref="authenticationManager"/>
+        <beans:constructor-arg index="1" ref="userIdSource"/>
+        <beans:constructor-arg index="2" ref="usersConnectionRepository"/>
+        <beans:constructor-arg index="3" ref="connectionFactoryLocator"/>
+
+        <!-- Sets the url of the registration form. -->
+        <beans:property name="signupUrl" value="/register/implicit"/>
+    </beans:bean>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="userAuthenticationProvider"/>
     </authentication-manager>
 
-    <beans:bean id="simpleAuthenticationSuccessHandler"
-                class="net.github.rtc.app.service.security.SimpleAuthenticationSuccessHandler"/>
+    <beans:bean id="simpleAuthenticationSuccessHandler" class="net.github.rtc.app.service.security.SimpleAuthenticationSuccessHandler"/>
     <beans:bean id="ajaxTimeoutRedirectFilter" class="net.github.rtc.app.utils.web.AjaxTimeoutRedirectFilter"/>
 </beans:beans>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:social="http://www.springframework.org/schema/social"
+       xmlns:vkontakte="http://www.springframework.org/schema/social/vkontakte"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/social/vkontakte http://www.springframework.org/schema/social/spring-social-vkontakte.xsd
+		http://www.springframework.org/schema/social http://www.springframework.org/schema/social/spring-social.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+
+    <context:property-placeholder location="classpath:social.properties" />
+
+    <vkontakte:config app-id="${vkontakte.consumerKey}" app-secret="${vkontakte.consumerSecret}"/>
+
+    <social:jdbc-connection-repository />
+
+
+    <bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource" />
+    <bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors"
+                factory-method="noOpText" />
+</beans>
