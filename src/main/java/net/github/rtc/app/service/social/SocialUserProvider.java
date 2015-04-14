@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SocialUserProvider {
 
+
     @SuppressWarnings("unchecked")
     public User getUser(Connection<?> connection) {
         User newUser = null;

@@ -2,7 +2,7 @@ package net.github.rtc.app.controller.common;
 
 import net.github.rtc.app.model.entity.user.EnglishLevel;
 import net.github.rtc.app.model.entity.user.User;
-import net.github.rtc.app.service.social.SocialUserProvider;
+import net.github.rtc.app.service.security.UserAuthenticationProvider;
 import net.github.rtc.app.service.user.UserService;
 import net.github.rtc.app.utils.enums.EnumHelper;
 import net.github.rtc.app.utils.propertyeditors.CustomTypeEditor;
@@ -10,6 +10,7 @@ import net.github.rtc.util.converter.ValidationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -22,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +42,8 @@ public class RegisterController {
     @Autowired
     private UserService userService;
     @Autowired
-    private SocialUserProvider socialUserProvider;
+    private UserAuthenticationProvider userAuthenticationProvider;
+
     private final  ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
 
     @RequestMapping(method = RequestMethod.GET)
@@ -53,19 +54,15 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/implicit", method = RequestMethod.GET)
-    public ModelAndView signupForm(WebRequest request) {
+    public String implicitRegister(WebRequest request) {
         final Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
         if (connection != null) {
-            final ModelAndView mav = new ModelAndView("/portal/user/profile/profile");
-
-            final User user = socialUserProvider.getUser(connection);
-            final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user, null);
-            SecurityContextHolder.getContext().setAuthentication(token);
-            mav.addObject(USER, user);
-            mav.addObject("courses", new ArrayList<>());
-            return mav;
+            final User user = userService.createWithSocial(connection);
+            final Authentication authentication = userAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(user, null));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return "redirect:/user/profile/";
         } else {
-            return new ModelAndView("redirect: /register");
+            return "redirect:/register";
         }
     }
 

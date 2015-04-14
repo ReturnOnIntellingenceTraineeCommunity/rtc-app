@@ -11,11 +11,13 @@ import net.github.rtc.app.service.builder.MailMessageBuilder;
 import net.github.rtc.app.service.date.DateService;
 import net.github.rtc.app.service.generic.AbstractCrudEventsService;
 import net.github.rtc.app.service.mail.MailService;
+import net.github.rtc.app.service.social.SocialUserProvider;
 import net.github.rtc.app.utils.web.files.upload.FileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.social.connect.Connection;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,6 +43,8 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
     private MailService mailService;
     @Autowired
     private MailMessageBuilder mailMessageBuilder;
+    @Autowired
+    private SocialUserProvider socialUserProvider;
 
     @Override
     protected GenericDao<User> getDao() {
@@ -67,6 +71,20 @@ public class UserServiceImpl extends AbstractCrudEventsService<User> implements 
     public User update(User user, MultipartFile image, boolean isActive) {
         setStatusAndImage(user, image, isActive);
         return update(user);
+    }
+
+    @Override
+    @Nonnull
+    public User createWithSocial(Connection<?> connection) {
+        final User newUser = socialUserProvider.getUser(connection);
+        newUser.setCode(getCode());
+        newUser.setAuthorities(Arrays.asList(this.findRoleByType(RoleType.ROLE_USER)));
+        newUser.setAccountNonExpired(true);
+        newUser.setAccountNonLocked(true);
+        newUser.setStatus(UserStatus.ACTIVE);
+        newUser.setRegisterDate(dateService.getCurrentDate());
+        userDao.create(newUser);
+        return newUser;
     }
 
     /**

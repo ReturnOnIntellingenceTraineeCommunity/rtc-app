@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.jasypt.hibernate4.type.EncryptedStringType;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.security.SocialUserDetails;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -29,12 +30,13 @@ import java.util.Set;
 
 @Entity
 @Validatable
-public class User extends AbstractPersistenceObject implements UserDetails, Auditable {
+public class User extends AbstractPersistenceObject implements UserDetails, Auditable, SocialUserDetails {
 
     public static final int PRIMARY_LENGTH = 50; //FUCKING FUCK!!!FUUU11!!11!
     public static final int SECONDARY_LENGTH = 30;
     public static final String SPACE = " ";
     public static final int LARGE_LENGTH = 255;
+    public static final int SIGN_IN_PROVIDER_LENGTH = 20;
 
     @NotEmpty
     @Length(max = PRIMARY_LENGTH)
@@ -153,6 +155,9 @@ public class User extends AbstractPersistenceObject implements UserDetails, Audi
     private boolean credentialsNonExpired = true;
     @Column
     private boolean enabled = true;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sign_in_provider", length = SIGN_IN_PROVIDER_LENGTH)
+    private SocialMediaService socialSignInProvider;
 
     public User() {
     }
@@ -398,6 +403,14 @@ public class User extends AbstractPersistenceObject implements UserDetails, Audi
         return this.surname + SPACE + this.name;
     }
 
+    public SocialMediaService getSocialSignInProvider() {
+        return socialSignInProvider;
+    }
+
+    public void setSocialSignInProvider(SocialMediaService socialSignInProvider) {
+        this.socialSignInProvider = socialSignInProvider;
+    }
+
     //todo:refactor
     @Override
     public String toString() {
@@ -417,6 +430,11 @@ public class User extends AbstractPersistenceObject implements UserDetails, Audi
                 + ", surname=" + surname
                 + ", name=" + name
                 + " ...}";
+    }
+
+    @Override
+    public String getUserId() {
+        return this.getUsername();
     }
 }
 

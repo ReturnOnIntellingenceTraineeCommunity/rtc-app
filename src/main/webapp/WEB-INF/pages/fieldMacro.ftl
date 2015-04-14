@@ -466,7 +466,11 @@
 
 <#macro userImage imageId="" id="" class="" alt="image">
     <#if imageId?has_content>
-        <img id="${id}" src="<@spring.url '/image/${imageId}'/>"  class="${class}" alt="${alt}"/>
+        <#if  imageId?starts_with("http://")>
+            <img id="${id}" src="<@spring.url '${imageId}'/>"  class="${class}" alt="${alt}"/>
+        <#else>
+            <img id="${id}" src="<@spring.url '/image/${imageId}'/>"  class="${class}" alt="${alt}"/>
+        </#if>
     <#else>
         <img id="${id}" src="<@spring.url'/resources/images/user/annonimous.png'/>"  class="${class}" alt="${alt}"/>
     </#if>

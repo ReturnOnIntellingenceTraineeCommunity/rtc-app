@@ -40,7 +40,7 @@
     <div class="row  col-md-6 col-md-offset-4">
         <!-- VKONTAKTE SIGNIN -->
         <form name="vk_signin" id="vk_signin" action="<@spring.url "/auth/vkontakte" />" method="POST">
-        <input type="hidden" name="scope" value="notify,friends,photos,audio,video,notes,pages,offline" />
+        <input type="hidden" name="scope" value="notify, photos, email" />
         <button type="submit">Sign In with Vkontakte</button>
         </form>
     </div>

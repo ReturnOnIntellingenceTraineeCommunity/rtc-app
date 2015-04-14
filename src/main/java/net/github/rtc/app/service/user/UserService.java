@@ -6,6 +6,7 @@ import net.github.rtc.app.model.entity.user.User;
 import net.github.rtc.app.service.generic.GenericService;
 import net.github.rtc.app.service.generic.ModelService;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.social.connect.Connection;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -62,6 +63,13 @@ public interface UserService extends ModelService<User>, UserDetailsService, Gen
      * @return updated user
      */
     User update(User user, MultipartFile image, boolean isActive);
+
+    /**
+     * Register user using social account (facebook etc)
+     * @param connection connection to service provider
+     * @return created user
+     */
+    User createWithSocial(Connection<?> connection);
 
     /**
      * Set user status FOR_REMOVALand set removal date
