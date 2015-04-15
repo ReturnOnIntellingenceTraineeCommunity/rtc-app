@@ -15,6 +15,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Nonnull;
 import java.util.*;
 
+/**
+ * Class that helps to build messages from user course order
+ */
 @Component("orderSendMessageBuilder")
 public class OrderSendMessageBuilder {
 
@@ -32,6 +35,11 @@ public class OrderSendMessageBuilder {
     @Autowired
     private TemplateStringBuilder templateStringBuilder;
 
+    /**
+     * Build list of messages from user course order
+     * @param order user course order, cannot be null
+     * @return list of messages
+     */
     @Nonnull
     public List<Message> build(@Nonnull UserCourseOrder order) {
         final List<Message> msgList = new ArrayList<>();
@@ -51,11 +59,20 @@ public class OrderSendMessageBuilder {
         return msgList;
     }
 
+    /**
+     * Get message subject
+     * @return message subject represented by string value
+     */
     @Nonnull
     private String getMessageSubject() {
         return templateStringBuilder.build(SUBJECT_TEMPLATE_PATH);
     }
 
+    /**
+     * Get message description from user course order
+     * @param order user course order
+     * @return message description represented by string value
+     */
     @Nonnull
     private String getMessageDescription(@Nonnull UserCourseOrder order) {
         final User user =  userService.findByCode(order.getUserCode());
