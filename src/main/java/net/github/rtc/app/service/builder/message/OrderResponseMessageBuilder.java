@@ -20,7 +20,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Object that helps to build list of messages
+ */
 @Component("orderResponseMessageBuilder")
 public class OrderResponseMessageBuilder {
 
@@ -47,6 +49,11 @@ public class OrderResponseMessageBuilder {
     @Autowired
     private MessageSource messageSource;
 
+    /**
+     * Build list of messages from course order
+     * @param order user course order
+     * @return list of messages
+     */
     @Nonnull
     public List<Message> build(UserCourseOrder order) {
         final Message msg = new Message();
@@ -60,6 +67,11 @@ public class OrderResponseMessageBuilder {
         return Arrays.asList(msg);
     }
 
+    /**
+     * Get subject text depends on user request status
+     * @param status the status of user request
+     * @return subject text
+     */
     @Nonnull
     private String getSubjectText(final UserRequestStatus status) {
         switch (status) {
@@ -78,6 +90,11 @@ public class OrderResponseMessageBuilder {
         }
     }
 
+    /**
+     * Build description text of the message from user course order
+     * @param order user course order
+     * @return description of the message
+     */
     @Nonnull
     private String getDescriptionText(final UserCourseOrder order) {
         final Map<String, Object> templateObj = new HashMap<>();
@@ -97,6 +114,11 @@ public class OrderResponseMessageBuilder {
         return templateStringBuilder.build(DESCRIPTION_TEMPLATE_PATH, templateObj);
     }
 
+    /**
+     * Get localized parameter from message code
+     * @param code message code
+     * @return localized parameter
+     */
     @Nonnull
     private String getLocalizedParam(String code) {
         return messageSource.getMessage(code, null, LocaleContextHolder.getLocale());
