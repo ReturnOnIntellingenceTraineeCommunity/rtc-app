@@ -15,6 +15,7 @@ public class VkUserFactoryImpl implements SocialUserFactory<VKontakte> {
     @Override
     public User getUser(Connection<VKontakte> connection) {
         final User user = new User();
+        connection.fetchUserProfile().getEmail();
         final VKontakteProfile vKontakteProfile = connection.getApi().usersOperations().getUser();
         user.setName(vKontakteProfile.getFirstName());
         user.setEmail(connection.fetchUserProfile().getUsername() + "@email.com");
