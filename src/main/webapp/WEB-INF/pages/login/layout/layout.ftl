@@ -3,6 +3,7 @@
 <head>
     <link href="<@spring.url'/resources/css/bootstrap.min.css'/>"  rel="stylesheet"/>
     <link href="<@spring.url'/resources/css/application.css'/>"  rel="stylesheet"/>
+    <link href="<@spring.url'/resources/css/wink/wink.css'/>"  rel="stylesheet"/>
 </head>
 
 <body>

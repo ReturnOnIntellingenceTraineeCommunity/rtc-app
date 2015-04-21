@@ -5,10 +5,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.mockito.InjectMocks;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 import static org.junit.Assert.*;
 
@@ -31,6 +28,9 @@ public class CSVTableTest {
         csvTable.writeToFile(CSV_TEST_FILE_PATH);
         String expectedValueOfCreatedFile = "00,01,02,10,11,12,20,21,22,";
         assertEquals(expectedValueOfCreatedFile, readCreatedFile(CSV_TEST_FILE_PATH));
+
+        File file = new File(CSV_TEST_FILE_PATH);
+        assertTrue(file.delete());
     }
 
     private String readCreatedFile(String fileName) {

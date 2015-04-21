@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.mockito.InjectMocks;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Iterator;
@@ -43,6 +44,9 @@ public class XLSNXTableTest {
         xlsxTable.writeToFile(XLSX_TEST_FILE_PATH);
         String expectedValueOfCreatedFile = "[[00, 01, 02], [10, 11, 12], [20, 21, 22]]";
         assertEquals(expectedValueOfCreatedFile, readCreatedXLSXFile(XLSX_TEST_FILE_PATH));
+
+        File file = new File(XLSX_TEST_FILE_PATH);
+        assertTrue(file.delete());
     }
 
     @Test
@@ -56,6 +60,9 @@ public class XLSNXTableTest {
         xlsTable.writeToFile(XLS_TEST_FILE_PATH);
         String expectedValueOfCreatedFile = "[[00, 01, 02], [10, 11, 12], [20, 21, 22]]";
         assertEquals(expectedValueOfCreatedFile, readCreatedXLSFile(XLS_TEST_FILE_PATH));
+
+        File file = new File(XLS_TEST_FILE_PATH);
+        assertTrue(file.delete());
     }
 
     private String readCreatedXLSFile(String fileName) {

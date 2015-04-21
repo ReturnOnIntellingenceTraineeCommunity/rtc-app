@@ -50,10 +50,9 @@ public class ExportBuilderTest {
         final List<User> objectsList = createUserList();
 
         final String sheetName = "sheetName";
-        final String filePath = FILE_PATH;
 
         ExportFormat exportFormat = ExportFormat.XLSX;
-        exportBuilder.build(exportField, objectsList, sheetName, filePath, exportFormat);
+        exportBuilder.build(exportField, objectsList, sheetName, FILE_PATH, exportFormat);
 
 
         Vector headerRow = new Vector();
@@ -62,9 +61,9 @@ public class ExportBuilderTest {
         }
         Vector expectedVector = createVectorFields(headerRow, objectsList);
 
-        assertXLSXFile(filePath, sheetName, expectedVector);
+        assertXLSXFile(FILE_PATH, sheetName, expectedVector);
 
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
         assertTrue(file.delete());
     }
 
