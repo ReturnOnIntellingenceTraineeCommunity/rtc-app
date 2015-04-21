@@ -1,5 +1,6 @@
 package net.github.rtc.app.service.export.table;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -14,8 +15,17 @@ public class CSVTableTest {
 
     @InjectMocks
     private CSVTable csvTable = new CSVTable();
+    private static final String TEST_FOLDER_PATH = "src/test/resources/files/";
+    private static final String CSV_TEST_FILE_PATH = TEST_FOLDER_PATH + "CSVTest";
 
-    private static final String CSV_TEST_FILE_PATH = "src/test/resources/files/CSVTest";
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        File theDir = new File(TEST_FOLDER_PATH);
+        if (!theDir.exists()) {
+            theDir.mkdir();
+        }
+    }
 
     @Test
     public void testCreateAndWriteCSVTableToFile() throws IOException {

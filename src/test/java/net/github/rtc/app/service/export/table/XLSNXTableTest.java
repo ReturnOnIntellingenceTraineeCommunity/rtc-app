@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -30,8 +31,18 @@ public class XLSNXTableTest {
     @InjectMocks
     private XLSNXTable xlsTable = new XLSNXTable(new HSSFWorkbook(), "XLSTest");
 
-    private static final String XLSX_TEST_FILE_PATH = "src/test/resources/files/XLSXTest";
-    private static final String XLS_TEST_FILE_PATH = "src/test/resources/files/XLSTest";
+    private static final String TEST_FOLDER_PATH = "src/test/resources/files/";
+
+    private static final String XLSX_TEST_FILE_PATH = TEST_FOLDER_PATH + "XLSXTest";
+    private static final String XLS_TEST_FILE_PATH =  TEST_FOLDER_PATH + "XLSTest";
+
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+        File theDir = new File(TEST_FOLDER_PATH);
+        if (!theDir.exists()) {
+            theDir.mkdir();
+        }
+    }
 
     @Test
     public void testCreateAndWriteXLSXTableToFile() throws IOException {
