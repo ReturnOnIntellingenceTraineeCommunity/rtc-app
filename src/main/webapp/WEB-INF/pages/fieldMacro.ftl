@@ -467,7 +467,7 @@
 <#macro userImage imageId="" id="" class="" alt="image">
     <#if imageId?has_content>
         <#if  imageId?starts_with("http://") || imageId?starts_with("https://")>
-            <img id="${id}" src="<@spring.url '${imageId}'/>"  class="${class}" alt="${alt}"/>
+            <img id="${id}" src="${imageId}"  class="${class}" alt="${alt}"/>
         <#else>
             <img id="${id}" src="<@spring.url '/image/${imageId}'/>"  class="${class}" alt="${alt}"/>
         </#if>
