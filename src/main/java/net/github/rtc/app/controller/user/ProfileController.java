@@ -38,7 +38,7 @@ public class ProfileController implements MenuItem {
     private static final String VALIDATION_RULES = "validationRules";
     private static final boolean IS_ACTIVE = true;
 
-    private static final String ADMIN_ROOT_URL = "admin/profile";
+    private static final String ADMIN_ROOT_URL = "/admin/profile";
     private static final String EXPERT_ROOT_URL = "/expert/profile";
     private static final String USER_ROOT_URL = "/user/profile";
 
@@ -90,7 +90,7 @@ public class ProfileController implements MenuItem {
         final Authentication request =  new UsernamePasswordAuthenticationToken(user, user.getPassword());
         authenticationManager.authenticate(request);
         SecurityContextHolder.getContext().setAuthentication(request);
-        return new ModelAndView(REDIRECT + getRootURL());
+        return new ModelAndView("redirect:" + getRootURL());
     }
 
     private String getRoot() {

@@ -1,4 +1,4 @@
-package net.github.rtc.app.service.social.user;
+package net.github.rtc.app.service.social.user.factory;
 
 import net.github.rtc.app.model.entity.user.EnglishLevel;
 import net.github.rtc.app.model.entity.user.SocialMediaService;

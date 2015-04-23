@@ -55,6 +55,12 @@
     </div>
 
     <div class="row  col-md-6 col-md-offset-4">
+        <!-- FACEBOOK SIGNIN -->
+        <form name="facebook_signin" id="facebook_signin" action="<@spring.url "/auth/facebook" />" method="POST">
+            <input type="hidden" name="scope" value="public_profile, email" />
+            <button type="submit">Sign In with Facebook</button>
+        </form>
+
         <!-- VKONTAKTE SIGNIN -->
         <form name="vk_signin" id="vk_signin" action="<@spring.url "/auth/vkontakte" />" method="POST">
             <input type="hidden" name="scope" value="notify, photos, email"/>

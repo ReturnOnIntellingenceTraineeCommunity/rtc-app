@@ -2,22 +2,15 @@ package net.github.rtc.app.controller.common;
 
 import net.github.rtc.app.model.entity.user.EnglishLevel;
 import net.github.rtc.app.model.entity.user.User;
-import net.github.rtc.app.service.security.UserAuthenticationProvider;
 import net.github.rtc.app.service.user.UserService;
 import net.github.rtc.app.utils.enums.EnumHelper;
 import net.github.rtc.app.utils.propertyeditors.CustomTypeEditor;
 import net.github.rtc.util.converter.ValidationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -41,29 +34,12 @@ public class RegisterController {
     private ValidationContext validationContext;
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserAuthenticationProvider userAuthenticationProvider;
-
-    private final  ProviderSignInUtils providerSignInUtils = new ProviderSignInUtils();
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView openRegisterPage() {
         final ModelAndView mav = new ModelAndView(VIEW_NAME);
         mav.addObject(VALIDATION_RULES, validationContext.get(User.class));
         return mav;
-    }
-
-    @RequestMapping(value = "/implicit", method = RequestMethod.GET)
-    public String implicitRegister(WebRequest request) {
-        final Connection<?> connection = providerSignInUtils.getConnectionFromSession(request);
-        if (connection != null) {
-            final User user = userService.createWithSocial(connection);
-            final Authentication authentication = userAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(user, null));
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            return "redirect:/user/profile/";
-        } else {
-            return "redirect:/register";
-        }
     }
 
     @RequestMapping(value = "/save", headers = "content-type=multipart/*", method = RequestMethod.POST)
