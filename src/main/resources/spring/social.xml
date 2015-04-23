@@ -22,6 +22,10 @@
                     <constructor-arg value="${facebook.consumerKey}" />
                     <constructor-arg value="${facebook.consumerSecret}" />
                 </bean>
+                <bean class="org.springframework.social.google.security.GoogleAuthenticationService">
+                    <constructor-arg value="${google.consumerKey}" />
+                    <constructor-arg value="${google.consumerSecret}" />
+                </bean>
             </list>
         </property>
     </bean>

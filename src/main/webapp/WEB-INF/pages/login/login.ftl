@@ -66,6 +66,12 @@
             <input type="hidden" name="scope" value="notify, photos, email"/>
             <button type="submit">Sign In with Vkontakte</button>
         </form>
+
+        <!-- GOOGLE SIGNIN -->
+        <form name="gp_signin" id="gp_signin" action="<@spring.url "/auth/google" />" method="POST">
+            <input type="hidden" name="scope" value="email https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.me" />
+            <button type="submit">Sign in with Google</button>
+        </form>
     </div>
 </div>
 <script>

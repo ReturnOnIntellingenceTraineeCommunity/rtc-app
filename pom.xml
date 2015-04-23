@@ -39,6 +39,7 @@
         <hibernate.version>4.2.2.Final</hibernate.version>
         <poi.version>3.10-FINAL</poi.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <org.springframework.social.google-version>1.0.0.RELEASE</org.springframework.social.google-version>
     </properties>
 
     <repositories>
@@ -354,6 +355,11 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook</artifactId>
             <version>2.0.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-google</artifactId>
+            <version>${org.springframework.social.google-version}</version>
         </dependency>
 
     </dependencies>
