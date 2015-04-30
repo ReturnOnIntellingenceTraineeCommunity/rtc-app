@@ -512,3 +512,7 @@
             <span>${week}-${week+1} weeks</span>
     </#if>
 </#macro>
+
+<#macro logo>
+<img style="height: 30px; margin-top: 5px;" src="<@spring.url'/resources/images/logo.svg'/>">
+</#macro>

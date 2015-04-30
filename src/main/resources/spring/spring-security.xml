@@ -37,6 +37,7 @@
         <beans:property name="authenticationSuccessHandler" ref="simpleAuthenticationSuccessHandler"/>
 
         <beans:property name="signupUrl" value="/register"/>
+        <beans:property name="defaultFailureUrl" value="/register"/>
     </beans:bean>
 
     <beans:bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider">
