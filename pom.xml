@@ -8,7 +8,9 @@
     <name>rtc-app</name>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app/</developerConnection>
+        <connection>scm:git:git://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app.git</connection>
+        <developerConnection>scm:git:git@github.com:ReturnOnIntellingenceTraineeCommunity/rtc-app.git</developerConnection>
+        <url>https://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app/</url>
     </scm>
 
     <properties>
