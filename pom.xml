@@ -3,14 +3,14 @@
     <groupId>net.github.rtc</groupId>
     <artifactId>rtc-app</artifactId>
     <packaging>war</packaging>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <name>rtc-app</name>
 
     <scm>
         <connection>scm:git:git://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app.git</connection>
         <developerConnection>scm:git:git@github.com:ReturnOnIntellingenceTraineeCommunity/rtc-app.git</developerConnection>
         <url>https://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app/</url>
-      <tag>rtc-app-1.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <properties>
