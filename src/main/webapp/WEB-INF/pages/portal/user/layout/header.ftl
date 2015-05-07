@@ -1,6 +1,7 @@
 <link href="<@spring.url'/resources/css/user.css'/>" rel="stylesheet"/>
 <div class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
     <div class="navbar-header">
+    <@formMacro.logo />
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right" style="">
