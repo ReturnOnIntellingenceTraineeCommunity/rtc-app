@@ -1,10 +1,9 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.github.rtc</groupId>
     <artifactId>rtc-app</artifactId>
     <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>rtc-app</name>
 
     <profiles>
@@ -29,8 +28,11 @@
     </profiles>
 
     <scm>
-        <developerConnection>scm:git:https://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app/</developerConnection>
-    </scm>
+        <connection>scm:git:git://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app.git</connection>
+        <developerConnection>scm:git:git@github.com:ReturnOnIntellingenceTraineeCommunity/rtc-app.git</developerConnection>
+        <url>https://github.com/ReturnOnIntellingenceTraineeCommunity/rtc-app/</url>
+      <tag>HEAD</tag>
+  </scm>
 
     <properties>
         <spring.version>4.0.6.RELEASE</spring.version>
@@ -421,17 +423,16 @@
                 <version>1.7</version>
                 <configuration>
                     <target name="copy findbugs and cobertura reports">
-                        <copy file="${project.build.directory}/findbugs/findbugsXml.html"
-                              tofile="${project.basedir}/src/main/webapp/WEB-INF/pages/findbugsXml.ftl"/>
+                        <copy file="${project.build.directory}/findbugs/findbugsXml.html" tofile="${project.basedir}/src/main/webapp/WEB-INF/pages/findbugsXml.ftl" />
 
                         <copy todir="${project.basedir}/src/main/webapp/resources/pages/cobertura">
                             <fileset dir="${project.build.directory}/site/cobertura">
-                                <include name="*.html"/>
+                                <include name="*.html" />
                             </fileset>
                         </copy>
                         <copy todir="${project.basedir}/src/main/webapp/resources/pages/cobertura/css">
                             <fileset dir="${project.build.directory}/site/cobertura/css">
-                                <include name="*.css"/>
+                                <include name="*.css" />
                             </fileset>
                         </copy>
                     </target>
@@ -449,8 +450,7 @@
                             <outputDir>${project.build.directory}/findbugs</outputDir>
                             <stylesheet>fancy-hist.xsl</stylesheet>
                             <fileMappers>
-                                <fileMapper
-                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
                                     <targetExtension>.html</targetExtension>
                                 </fileMapper>
                             </fileMappers>
@@ -533,6 +533,17 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.1</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>perform</goal>
+                        </goals>
+                        <configuration>
+                            <pomFileName>pom.xml</pomFileName>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
